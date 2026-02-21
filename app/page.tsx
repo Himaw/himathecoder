@@ -91,7 +91,7 @@ export default function Home() {
   return (
     <main className="relative h-screen w-screen overflow-hidden text-white">
       <CustomCursor />
-      <Navbar />
+      <Navbar onNavigate={goToSlide} />
 
       {/* Persistent Interactive Background */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#09090b]">
@@ -113,7 +113,7 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex h-full w-full flex-col">
-        <Navbar />
+        <Navbar onNavigate={goToSlide} />
 
         {/* Navigation Dots */}
         <div className="fixed right-8 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-4">
@@ -121,11 +121,8 @@ export default function Home() {
             <button
               key={slideItem.id}
               onClick={() => goToSlide(index)}
-              className="group relative flex items-center justify-end gap-4"
+              className="group relative flex items-center justify-end"
             >
-              <span className={`text-[10px] font-bold uppercase tracking-widest transition-all duration-500 ${index === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4 group-hover:opacity-50 group-hover:translate-x-0'}`}>
-                {slideItem.id}
-              </span>
               <div className={`h-2 w-2 rounded-full transition-all duration-500 ${index === currentSlide ? 'scale-150 bg-indigo-500' : 'bg-white/20 hover:bg-white/50'}`} />
             </button>
           ))}

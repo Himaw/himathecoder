@@ -14,7 +14,7 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="font-display text-indigo-500 text-xs font-bold uppercase tracking-[0.4em] md:text-sm">
-            Software Engineer @ Alstom
+            Software Engineer
           </h2>
         </motion.div>
 
@@ -47,7 +47,7 @@ export default function Hero() {
         >
           <Magnetic>
             <a 
-              href="https://linkedin.com/in/himasara" 
+              href="https://linkedin.com/in/himaofficial" 
               target="_blank" 
               className="group relative overflow-hidden rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-widest text-black transition-all hover:pr-12 md:px-10 md:py-5 md:text-sm"
             >
@@ -76,7 +76,7 @@ export default function Hero() {
           className="relative aspect-[3/4] w-full max-w-[300px] md:max-w-[400px] lg:max-w-[450px] overflow-hidden rounded-3xl border border-white/10 glass shadow-2xl"
         >
           <Image
-            src="https://picsum.photos/seed/hima-portrait/900/1200"
+            src="/img/hima.jpg"
             alt="Himasara Profile"
             fill
             className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
@@ -91,7 +91,7 @@ export default function Hero() {
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="absolute -right-4 top-10 md:-right-8 md:top-20 rounded-xl bg-indigo-500 px-4 py-2 font-display text-[10px] font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3 md:text-xs"
         >
-          HimaTheCoder
+          AI Enthusiast
         </motion.div>
 
         <motion.div

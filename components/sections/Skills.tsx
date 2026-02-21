@@ -74,8 +74,8 @@ export default function Skills() {
                 <Mail className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">Email</p>
               </div>
-              <a href="mailto:himasara@himathecoder.com" className="font-display text-sm font-bold uppercase text-white/90 hover:text-indigo-500 transition-colors">
-                himasara@himathecoder.com
+              <a href="mailto:himasara.warna@gmail.com" className="font-display text-sm font-bold uppercase text-white/90 hover:text-indigo-500 transition-colors">
+                himasara.warna@gmail.com
               </a>
             </div>
             <div className="flex flex-col gap-2">
@@ -84,7 +84,7 @@ export default function Skills() {
                 <p className="text-[9px] font-bold uppercase tracking-widest">Phone</p>
               </div>
               <p className="font-display text-sm font-bold uppercase text-white/90">
-                +66 (0) 9X XXX XXXX
+                +66 (0) 64 671 2502
               </p>
             </div>
             <div className="flex flex-col gap-2">
@@ -93,7 +93,7 @@ export default function Skills() {
                 <p className="text-[9px] font-bold uppercase tracking-widest">LinkedIn</p>
               </div>
               <a href="https://linkedin.com/in/himasara" target="_blank" className="font-display text-sm font-bold uppercase text-white/90 hover:text-indigo-500 transition-colors">
-                in/himasara
+                in/himaofficial
               </a>
             </div>
             <div className="flex flex-col gap-2">

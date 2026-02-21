@@ -11,25 +11,16 @@ const projects = [
     repo: "Private",
     descriptionTitle: "AI-driven WebApp",
     description: "that can be used for generating high quality YouTube Thumbnails, boosting video impressions and engagement.",
-    image: "https://picsum.photos/seed/impressions/1200/800",
+    image: "/img/impressions.png",
     stack: ["React", "Flask", "Supabase/Postgresql", "Google Cloud Platform", "Git"]
   },
   {
     project: "!Hajimaaaa",
     url: "https://github.com/Himaw/Hajimaaa-ELearning",
-    repo: "Public",
+    repo: "Private",
     descriptionTitle: "E-Learning Platform",
     description: "for secure, accessible education representing a cutting-edge solution that leverages principles of decentralization.",
-    image: "https://picsum.photos/seed/hajima/1200/800",
-    stack: ["JavaScript", "HTML5", "CSS3", "PHP", "MySQL", "Git"]
-  },
-  {
-    project: "madhaweeprinters.lk",
-    url: "https://madhaweeprinters.lk/",
-    repo: "Private",
-    descriptionTitle: "Official Website",
-    description: "for a printing press, with a modern design that provides a fully responsive and user-friendly experience for thier users.",
-    image: "https://picsum.photos/seed/madhawee/1200/800",
+    image: "/img/Hajima.png",
     stack: ["JavaScript", "HTML5", "CSS3", "PHP", "MySQL", "Git"]
   },
   {
@@ -38,9 +29,19 @@ const projects = [
     repo: "Private",
     descriptionTitle: "WebApp",
     description: "for a real time Indoor positioning system, which visualizes the realtime location data.",
-    image: "https://picsum.photos/seed/conn/1200/800",
+    image: "/img/conn.png",
     stack: ["NextJs", "Supabase/Postgresql", "Git"]
+  },
+  {
+    project: "madhaweeprinters.lk",
+    url: "https://madhaweeprinters.lk/",
+    repo: "Private",
+    descriptionTitle: "Official Website",
+    description: "for a printing press, with a modern design that provides a fully responsive and user-friendly experience for thier users.",
+    image: "/img/Madhawee.png",
+    stack: ["JavaScript", "HTML5", "CSS3", "PHP", "MySQL", "Git"]
   }
+  
 ];
 
 export default function Projects() {
@@ -64,12 +65,12 @@ export default function Projects() {
               transition={{ delay: index * 0.1 }}
               className="group relative overflow-hidden rounded-3xl border border-white/10 bg-neutral-900"
             >
-              <div className="relative aspect-video overflow-hidden">
+              <div className="relative aspect-video overflow-hidden cursor-pointer">
                 <Image
                   src={project.image}
                   alt={project.project}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                 fill
+                  className="object-contain object-center transition-transform duration-700 group-hover:scale-90"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
