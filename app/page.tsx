@@ -102,11 +102,12 @@ export default function Home() {
           <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full bg-indigo-500/10 blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full bg-blue-600/5 blur-[150px]" />
           
-          {/* Dot Grid that moves with mouse */}
-          <div className="absolute inset-0 h-full w-full opacity-30" 
+          {/* Dot Grid that moves with mouse and drifts */}
+          <div className="absolute inset-0 h-full w-full opacity-50 bg-drift" 
             style={{ 
-              backgroundImage: 'radial-gradient(circle, #6366f1 0.5px, transparent 0.5px)', 
-              backgroundSize: '40px 40px' 
+              backgroundImage: 'radial-gradient(circle, #6366f1 1.2px, transparent 1.2px)', 
+              backgroundSize: '40px 40px',
+              animation: 'drift 30s linear infinite'
             }} 
           />
         </motion.div>
@@ -144,21 +145,33 @@ export default function Home() {
           </button>
         </div>
 
+        <AnimatePresence>
+          {isAnimating && (
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="fixed left-0 top-0 z-[100] h-1 w-full bg-indigo-500 origin-left"
+            />
+          )}
+        </AnimatePresence>
+
         <AnimatePresence mode="wait" onExitComplete={() => setIsAnimating(false)}>
           <motion.div
             key={currentSlide}
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '-100%', opacity: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ y: '20%', opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+            animate={{ y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ y: '-20%', opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 flex h-full w-full items-center justify-center pt-16 md:pt-20"
           >
             <div className="h-full w-full max-w-[1600px]">
               {Component && <Component />}
             </div>
           </motion.div>
-      </AnimatePresence>
-    </div>
+        </AnimatePresence>
+      </div>
   </main>
 );
 }

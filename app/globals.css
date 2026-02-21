@@ -104,3 +104,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(var(--primary-rgb), 0.3);
 }
+
+@keyframes drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 40px;
+  }
+}
+
+.bg-drift {
+  animation: drift 20s linear infinite !important;
+}
+
