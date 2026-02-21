@@ -69,8 +69,8 @@ export default function Projects() {
                 <Image
                   src={project.image}
                   alt={project.project}
-                 fill
-                  className="object-contain object-center transition-transform duration-700 group-hover:scale-90"
+                  fill
+                  className="object-contain scale-90 object-center transition-transform duration-700 group-hover:scale-80"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
