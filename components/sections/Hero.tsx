@@ -23,7 +23,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="font-display text-[clamp(2.5rem,7vw,7rem)] font-black leading-[0.9] tracking-tighter uppercase text-white"
+            className="font-display text-[clamp(2.5rem,6vw,6rem)] font-black leading-[0.9] tracking-tighter uppercase text-white"
           >
             Himasara <br />
             <span className="text-[0.6em] text-zinc-500">Warnakulasuriya</span>
@@ -34,7 +34,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-xl text-base text-zinc-400 md:text-lg lg:text-xl leading-relaxed"
+          className="max-w-xl text-sm text-zinc-400 md:text-base lg:text-lg leading-relaxed"
         >
           I Turn Thoughts into Digital Realities. A passionate software developer excelling in problem-solving, full-stack innovation, and crafting immersive digital experiences.
         </motion.p>

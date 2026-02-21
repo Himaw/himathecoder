@@ -88,10 +88,10 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="relative h-full w-full rounded-3xl border border-white/5 bg-zinc-900/40 backdrop-blur-sm transition-colors duration-500 hover:border-indigo-500/30"
+      className="relative h-full w-full min-h-0 rounded-2xl border border-white/5 bg-zinc-900/40 backdrop-blur-sm transition-colors duration-500 hover:border-indigo-500/30"
     >
-      <div className="flex h-full flex-col p-8" style={{ transform: "translateZ(20px)" }}>
-        <div className="relative mb-6 aspect-video overflow-hidden rounded-2xl bg-black/20 group">
+      <div className="flex h-full flex-col p-4" style={{ transform: "translateZ(20px)" }}>
+        <div className="relative mb-3 aspect-video h-32 overflow-hidden rounded-lg bg-black/20 group mx-auto">
           <Image
             src={project.image}
             alt={project.project}
@@ -108,36 +108,36 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
           ))}
         </div>
 
-        <h3 className="truncate font-display text-2xl font-black uppercase leading-tight tracking-tighter text-white py-1">
+        <h3 className="truncate font-display text-lg font-black uppercase leading-tight tracking-tighter text-white py-0.5">
           {project.project}
         </h3>
-        <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-500/80">
+        <p className="mt-0.5 text-[8px] font-bold uppercase tracking-[0.2em] text-indigo-500/80">
           {project.descriptionTitle}
         </p>
-        <p className="mt-3 text-xs leading-relaxed text-zinc-400">
+        <p className="mt-2 text-[11px] leading-snug text-zinc-400 line-clamp-2">
           {project.description}
         </p>
 
-        <div className="mt-auto flex items-center justify-between pt-6">
-          <div className="flex gap-3">
+        <div className="mt-auto flex items-center justify-between pt-4">
+          <div className="flex gap-2">
             {project.repo === "Public" && (
               <a 
                 href={project.url}
                 target="_blank"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-white transition-all hover:bg-white hover:text-black"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-white transition-all hover:bg-white hover:text-black"
               >
-                <Github className="h-4 w-4" />
+                <Github className="h-3.5 w-3.5" />
               </a>
             )}
             <a 
               href={project.url}
               target="_blank"
-              className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500 text-white transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)]"
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500 text-white transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)]"
             >
-              <ExternalLink className="h-4 w-4" />
+              <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </div>
-          <span className="text-[9px] font-black uppercase tracking-widest text-white/20">
+          <span className="text-[8px] font-black uppercase tracking-widest text-white/20">
             Case Study
           </span>
         </div>
@@ -148,21 +148,21 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
 export default function Projects() {
   return (
-    <div className="flex h-full w-full flex-col px-6 py-20 md:px-12">
-      <div className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between">
+    <div className="flex h-full w-full flex-col px-6 py-6 md:px-12">
+      <div className="mb-4 flex flex-col md:flex-row md:items-end md:justify-between">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="font-display text-5xl font-black uppercase tracking-tighter md:text-7xl">
+          <h2 className="font-display text-3xl font-black uppercase tracking-tighter md:text-5xl">
             Selected <span className="text-indigo-500">Works</span>
           </h2>
         </motion.div>
       </div>
 
-      <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-20">
+      <div className="flex-1 pr-4 min-h-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 h-full">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}

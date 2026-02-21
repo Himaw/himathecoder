@@ -36,24 +36,24 @@ const academics = [
 
 export default function Education() {
   return (
-    <div className="flex h-full w-full flex-col px-6 py-20 md:px-12">
+    <div className="flex h-full w-full flex-col px-6 py-10 md:px-12">
       <motion.h2
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        className="mb-12 font-display text-4xl font-black uppercase tracking-tighter md:text-6xl"
+        className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
       >
         Academic <span className="text-indigo-500">Journey</span>
       </motion.h2>
 
-      <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
-        <div className="grid gap-8 md:grid-cols-2">
+      <div className="flex-1 pr-4">
+        <div className="grid gap-6 md:grid-cols-2">
           {academics.map((edu, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="group relative flex flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-8 transition-all hover:border-indigo-500/50 hover:bg-indigo-500/5"
+              className="group relative flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-6 transition-all hover:border-indigo-500/50 hover:bg-indigo-500/5"
             >
               <div className="flex flex-col gap-1">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-500">
@@ -74,7 +74,7 @@ export default function Education() {
                 </div>
               )}
 
-              <p className="text-sm leading-relaxed text-neutral-400">
+              <p className="text-xs leading-relaxed text-neutral-400">
                 {edu.description}
               </p>
 

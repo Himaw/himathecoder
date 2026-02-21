@@ -43,17 +43,17 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <div className="flex h-full w-full flex-col px-6 py-20 md:px-12">
+    <div className="flex h-full w-full flex-col px-6 py-10 md:px-12">
       <motion.h2
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        className="mb-12 font-display text-4xl font-black uppercase tracking-tighter md:text-6xl"
+        className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
       >
         Work <span className="text-indigo-500">Experience</span>
       </motion.h2>
 
-      <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
-        <div className="flex flex-col gap-12">
+      <div className="flex-1 pr-4">
+        <div className="flex flex-col gap-6">
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
@@ -66,7 +66,7 @@ export default function Experience() {
               
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                  <h3 className="font-display text-2xl font-bold uppercase tracking-tight text-white">
+                  <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white">
                     {exp.role} @ <span className="text-indigo-500">{exp.company}</span>
                   </h3>
                   <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">
@@ -78,11 +78,11 @@ export default function Experience() {
                   {exp.location} • {exp.type}
                 </p>
                 
-                <p className="mt-4 max-w-3xl text-neutral-300 leading-relaxed">
+                <p className="mt-2 max-w-3xl text-xs text-neutral-300 leading-relaxed">
                   {exp.description}
                 </p>
 
-                <div className="mt-6 flex flex-wrap gap-2">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {exp.skills.map((skill) => (
                     <span
                       key={skill}
