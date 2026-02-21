@@ -117,14 +117,23 @@ export default function Home() {
         <Navbar onNavigate={goToSlide} />
 
         {/* Navigation Dots */}
-        <div className="fixed right-8 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-4">
+        <div className="fixed right-8 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-6">
           {slides.map((slideItem, index) => (
             <button
               key={slideItem.id}
               onClick={() => goToSlide(index)}
               className="group relative flex items-center justify-end"
             >
-              <div className={`h-2 w-2 rounded-full transition-all duration-500 ${index === currentSlide ? 'scale-150 bg-indigo-500' : 'bg-white/20 hover:bg-white/50'}`} />
+              {/* Slide Name Tooltip */}
+              <span className="mr-6 absolute right-full opacity-0 translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 font-display text-[10px] font-black uppercase tracking-widest text-indigo-400 whitespace-nowrap pointer-events-none">
+                {slideItem.id}
+              </span>
+
+              <div className={`h-2 w-2 rounded-full transition-all duration-500 ${
+                index === currentSlide 
+                  ? 'scale-150 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]' 
+                  : 'bg-white/20 hover:bg-white/50'
+              }`} />
             </button>
           ))}
         </div>
