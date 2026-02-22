@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} dark`}>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         <link
           rel="apple-touch-icon"
@@ -57,7 +57,7 @@ export default function RootLayout({
           content="const Hima = ( name, passion ) => Himasara, I Turn Thoughts into Digital Realities"
         />
         </head>
-      <body className="bg-zinc-950 text-zinc-50 antialiased selection:bg-primary selection:text-white" suppressHydrationWarning>
+      <body className="antialiased selection:bg-primary selection:text-white" suppressHydrationWarning>
         <ThemeProvider>
           {children}
         </ThemeProvider>

@@ -62,23 +62,23 @@ export default function Experience() {
               transition={{ delay: index * 0.1 }}
               className="group relative border-l-2 border-primary/20 pl-8 transition-colors hover:border-primary"
             >
-              <div className="absolute -left-[7px] top-0 h-4 w-4 rounded-full bg-zinc-900 border-2 border-primary transition-transform group-hover:scale-125" />
+              <div className="absolute -left-[7px] top-0 h-4 w-4 rounded-full bg-[var(--background)] border-2 border-primary transition-transform group-hover:scale-125" />
               
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center justify-between gap-4">
-                  <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white">
+                  <h3 className="font-display text-xl font-bold uppercase tracking-tight text-[var(--foreground)]">
                     {exp.role} @ <span className="text-primary">{exp.company}</span>
                   </h3>
-                  <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">
+                  <span className="text-sm font-bold uppercase tracking-widest text-[var(--muted)]">
                     {exp.period}
                   </span>
                 </div>
                 
-                <p className="text-sm font-medium uppercase tracking-widest text-neutral-400">
+                <p className="text-sm font-medium uppercase tracking-widest text-[var(--muted)]">
                   {exp.location} • {exp.type}
                 </p>
                 
-                <p className="mt-2 max-w-3xl text-xs text-neutral-300 leading-relaxed">
+                <p className="mt-2 max-w-3xl text-xs text-[var(--foreground)]/70 leading-relaxed">
                   {exp.description}
                 </p>
 

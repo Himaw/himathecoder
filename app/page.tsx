@@ -89,12 +89,12 @@ export default function Home() {
   const Component = slide?.component;
 
   return (
-    <main className="relative h-screen w-screen overflow-hidden text-white">
+    <main className="relative h-screen w-screen overflow-hidden text-[var(--foreground)]">
       <CustomCursor />
       <Navbar onNavigate={goToSlide} />
 
       {/* Persistent Interactive Background */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#09090b]">
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[var(--background)] transition-colors duration-500">
         <motion.div 
           style={{ x: moveX, y: moveY }}
           className="absolute inset-[-20%] opacity-60"
@@ -103,7 +103,7 @@ export default function Home() {
           <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full bg-blue-600/5 blur-[150px]" />
           
           {/* Dot Grid that moves with mouse and drifts */}
-          <div className="absolute inset-0 h-full w-full opacity-50 bg-drift" 
+          <div className="absolute inset-0 h-full w-full opacity-30 dark:opacity-50 bg-drift" 
             style={{ 
               backgroundImage: 'radial-gradient(circle, var(--primary) 1.2px, transparent 1.2px)', 
               backgroundSize: '40px 40px',
@@ -129,10 +129,10 @@ export default function Home() {
                 {slideItem.id}
               </span>
 
-              <div className={`h-2 w-2 rounded-full transition-all duration-500 ${
+              <div className={`h-2.5 w-2.5 rounded-full transition-all duration-500 ${
                 index === currentSlide 
-                  ? 'scale-150 bg-primary shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]' 
-                  : 'bg-white/20 hover:bg-white/50'
+                  ? 'scale-125 bg-primary shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]' 
+                  : 'bg-foreground/20 hover:bg-foreground/40'
               }`} />
             </button>
           ))}
@@ -142,15 +142,15 @@ export default function Home() {
         <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-2 md:hidden">
           <button 
             onClick={() => currentSlide > 0 && goToSlide(currentSlide - 1)}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md"
           >
-            <ChevronUp className="h-6 w-6" />
+            <ChevronUp className="h-6 w-6 text-[var(--foreground)]" />
           </button>
           <button 
             onClick={() => currentSlide < slides.length - 1 && goToSlide(currentSlide + 1)}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md"
           >
-            <ChevronDown className="h-6 w-6" />
+            <ChevronDown className="h-6 w-6 text-[var(--foreground)]" />
           </button>
         </div>
 

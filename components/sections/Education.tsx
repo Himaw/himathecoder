@@ -53,28 +53,28 @@ export default function Education() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="group relative flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-6 transition-all hover:border-primary/50 hover:bg-primary/5"
+              className="group relative flex flex-col gap-3 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 transition-all hover:border-primary/50 hover:bg-primary/5"
             >
               <div className="flex flex-col gap-1">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
                   {edu.period}
                 </span>
-                <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white group-hover:text-primary transition-colors">
+                <h3 className="font-display text-xl font-bold uppercase tracking-tight text-[var(--foreground)] group-hover:text-primary transition-colors">
                   {edu.degree}
                 </h3>
-                <p className="text-sm font-medium uppercase tracking-widest text-neutral-400">
+                <p className="text-sm font-medium uppercase tracking-widest text-[var(--muted)]">
                   {edu.institution}
                 </p>
               </div>
 
               {edu.gpa && (
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">GPA:</span>
-                  <span className="text-sm font-black text-white">{edu.gpa}</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">GPA:</span>
+                  <span className="text-sm font-black text-[var(--foreground)]">{edu.gpa}</span>
                 </div>
               )}
 
-              <p className="text-xs leading-relaxed text-neutral-400">
+              <p className="text-xs leading-relaxed text-[var(--muted)]">
                 {edu.description}
               </p>
 
@@ -83,7 +83,7 @@ export default function Education() {
                   {edu.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-neutral-500"
+                      className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]"
                     >
                       #{skill}
                     </span>

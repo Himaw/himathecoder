@@ -23,10 +23,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="font-display text-[clamp(2.5rem,6vw,6rem)] font-black leading-[0.9] tracking-tighter uppercase text-white"
+            className="font-display text-[clamp(2.5rem,6vw,6rem)] font-black leading-[0.9] tracking-tighter uppercase text-[var(--foreground)]"
           >
             Himasara <br />
-            <span className="text-[0.6em] text-zinc-500">Warnakulasuriya</span>
+            <span className="text-[0.6em] text-[var(--muted)]">Warnakulasuriya</span>
           </motion.h1>
         </div>
 
@@ -34,7 +34,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-xl text-sm text-zinc-400 md:text-base lg:text-lg leading-relaxed"
+          className="max-w-xl text-sm text-[var(--muted)] md:text-base lg:text-lg leading-relaxed"
         >
           I Turn Thoughts into Digital Realities. A passionate software developer excelling in problem-solving, full-stack innovation, and crafting immersive digital experiences.
         </motion.p>
@@ -49,7 +49,7 @@ export default function Hero() {
             <a 
               href="https://linkedin.com/in/himaofficial" 
               target="_blank" 
-              className="group relative overflow-hidden rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-widest text-black transition-all hover:pr-12 md:px-10 md:py-5 md:text-sm"
+              className="group relative overflow-hidden rounded-full bg-[var(--foreground)] px-8 py-4 text-xs font-bold uppercase tracking-widest text-[var(--background)] transition-all hover:pr-12 md:px-10 md:py-5 md:text-sm"
             >
               <span className="relative z-10">Connect on LinkedIn</span>
               <div className="absolute inset-0 -z-0 bg-primary translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
@@ -73,7 +73,7 @@ export default function Hero() {
             repeat: Infinity, 
             ease: "easeInOut" 
           }}
-          className="relative aspect-[3/4] w-full max-w-[240px] md:max-w-[400px] lg:max-w-[450px] max-h-[40vh] md:max-h-none overflow-hidden rounded-3xl border border-white/10 glass shadow-2xl"
+          className="relative aspect-[3/4] w-full max-w-[240px] md:max-w-[400px] lg:max-w-[450px] max-h-[40vh] md:max-h-none overflow-hidden rounded-3xl border border-[var(--border)] glass shadow-2xl"
         >
           <Image
             src="/img/hima.jpg"
@@ -82,14 +82,14 @@ export default function Hero() {
             className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </motion.div>
         
         {/* Floating Elements */}
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-3 top-8 md:-right-8 md:top-20 rounded-xl bg-primary px-3 py-1.5 font-display text-[8px] md:text-sm font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3"
+          className="absolute -right-3 top-8 md:-right-8 md:top-20 rounded-xl bg-primary px-3 py-1.5 font-display text-[8px] md:text-sm font-bold uppercase tracking-widest text-[#ffffff] shadow-2xl md:px-6 md:py-3"
         >
           AI Enthusiast
         </motion.div>
@@ -97,7 +97,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute -left-3 bottom-8 md:-left-8 md:bottom-20 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md px-3 py-1.5 font-display text-[6px] md:text-[10px] font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3"
+          className="absolute -left-3 bottom-8 md:-left-8 md:bottom-20 rounded-xl bg-[var(--card)] border border-[var(--border)] backdrop-blur-md px-3 py-1.5 font-display text-[6px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--foreground)] shadow-2xl md:px-6 md:py-3"
         >
           Full Stack Dev
         </motion.div>
@@ -110,10 +110,10 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-zinc-500">
+        <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-[var(--muted)]">
           Scroll to explore
         </span>
-        <div className="relative h-10 w-6 rounded-full border-2 border-white/10">
+        <div className="relative h-10 w-6 rounded-full border-2 border-[var(--border)]">
           <motion.div
             animate={{ 
               y: [4, 24, 4],

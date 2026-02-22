@@ -12,39 +12,69 @@ export const themes = {
 } as const;
 
 export type ThemeColor = keyof typeof themes;
+export type ThemeMode = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: ThemeColor;
   setTheme: (theme: ThemeColor) => void;
+  mode: ThemeMode;
+  toggleMode: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<ThemeColor>('indigo');
+  const [mode, setModeState] = useState<ThemeMode>('dark');
 
   useEffect(() => {
+    // Load saved theme color
     const savedTheme = localStorage.getItem('theme-color') as ThemeColor;
     if (savedTheme && themes[savedTheme]) {
       setThemeState(savedTheme);
-      applyTheme(savedTheme);
+      applyThemeColor(savedTheme);
+    }
+
+    // Load saved theme mode
+    const savedMode = localStorage.getItem('theme-mode') as ThemeMode;
+    if (savedMode) {
+      setModeState(savedMode);
+      applyThemeMode(savedMode);
+    } else {
+      // Default to dark mode
+      applyThemeMode('dark');
     }
   }, []);
 
-  const applyTheme = (color: ThemeColor) => {
+  const applyThemeColor = (color: ThemeColor) => {
     const { hex, rgb } = themes[color];
     document.documentElement.style.setProperty('--primary', hex);
     document.documentElement.style.setProperty('--primary-rgb', rgb);
   };
 
+  const applyThemeMode = (newMode: ThemeMode) => {
+    if (newMode === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
   const setTheme = (newTheme: ThemeColor) => {
     setThemeState(newTheme);
     localStorage.setItem('theme-color', newTheme);
-    applyTheme(newTheme);
+    applyThemeColor(newTheme);
+  };
+
+  const toggleMode = () => {
+    const newMode = mode === 'dark' ? 'light' : 'dark';
+    setModeState(newMode);
+    localStorage.setItem('theme-mode', newMode);
+    applyThemeMode(newMode);
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, mode, toggleMode }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -35,7 +35,7 @@ export default function Skills() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+                    className="rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary text-[var(--foreground)]"
                   >
                     {lang}
                   </motion.span>
@@ -54,7 +54,7 @@ export default function Skills() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+                    className="rounded-xl border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary text-[var(--foreground)]"
                   >
                     {tech}
                   </motion.span>
@@ -64,7 +64,7 @@ export default function Skills() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-white/5 pt-6 pb-2">
+        <div className="mt-8 border-t border-[var(--border)] pt-6 pb-2">
           <h3 className="mb-6 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-primary/80">
             Contact & Socials
           </h3>
@@ -74,7 +74,7 @@ export default function Skills() {
                 <Mail className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">Email</p>
               </div>
-              <a href="mailto:himasara.warna@gmail.com" className="font-display text-sm font-bold uppercase text-white/90 hover:text-primary transition-colors">
+              <a href="mailto:himasara.warna@gmail.com" className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90 hover:text-primary transition-colors">
                 himasara.warna@gmail.com
               </a>
             </div>
@@ -83,7 +83,7 @@ export default function Skills() {
                 <Phone className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">Phone</p>
               </div>
-              <p className="font-display text-sm font-bold uppercase text-white/90">
+              <p className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90">
                 +66 (0) 64 671 2502
               </p>
             </div>
@@ -92,7 +92,7 @@ export default function Skills() {
                 <Linkedin className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">LinkedIn</p>
               </div>
-              <a href="https://linkedin.com/in/himasara" target="_blank" className="font-display text-sm font-bold uppercase text-white/90 hover:text-primary transition-colors">
+              <a href="https://linkedin.com/in/himasara" target="_blank" className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90 hover:text-primary transition-colors">
                 in/himaofficial
               </a>
             </div>
@@ -101,7 +101,7 @@ export default function Skills() {
                 <Github className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">GitHub</p>
               </div>
-              <a href="https://github.com/Himaw" target="_blank" className="font-display text-sm font-bold uppercase text-white/90 hover:text-primary transition-colors">
+              <a href="https://github.com/Himaw" target="_blank" className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90 hover:text-primary transition-colors">
                 github/Himaw
               </a>
             </div>

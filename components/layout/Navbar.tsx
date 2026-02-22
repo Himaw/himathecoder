@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
-import { Menu, X, Palette } from 'lucide-react';
+import { Menu, X, Palette, Sun, Moon } from 'lucide-react';
 import { useTheme, themes } from '@/hooks/use-theme';
 
 import Magnetic from '@/components/ui/Magnetic';
@@ -20,7 +20,7 @@ interface NavbarProps {
 export default function Navbar({ onNavigate }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const { theme: currentTheme, setTheme } = useTheme();
+  const { theme: currentTheme, setTheme, mode, toggleMode } = useTheme();
 
   const handleNavigate = (index: number) => {
     onNavigate?.(index);
@@ -38,15 +38,24 @@ export default function Navbar({ onNavigate }: NavbarProps) {
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <button onClick={() => handleNavigate(0)} className="group flex items-center gap-2">
             <div className="h-8 w-8 rounded-full bg-primary transition-transform duration-500 group-hover:rotate-180" />
-            <span className="font-display text-xl font-bold tracking-tighter uppercase">HimaTheCoder</span>
+            <span className="font-display text-xl font-bold tracking-tighter uppercase text-[var(--foreground)]">HimaTheCoder</span>
           </button>
 
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-4 md:flex">
+            {/* Mode Toggle */}
+            <button
+              onClick={toggleMode}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] transition-all hover:bg-[var(--foreground)]/10"
+              aria-label="Toggle dark/light mode"
+            >
+              {mode === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+
             {/* Color Picker Toggle */}
             <div className="relative">
               <button
                 onClick={() => setShowColorPicker(!showColorPicker)}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/10 text-white transition-all hover:bg-white/10"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] transition-all hover:bg-[var(--foreground)]/10"
                 aria-label="Change theme color"
               >
                 <Palette className="h-5 w-5" />
@@ -58,7 +67,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                     initial={{ opacity: 0, scale: 0.9, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                    className="absolute right-0 top-full mt-4 flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-900/90 p-3 backdrop-blur-xl shadow-2xl"
+                    className="absolute right-0 top-full mt-4 flex items-center gap-2 rounded-2xl border border-[var(--border)] bg-[var(--background)]/90 p-3 backdrop-blur-xl shadow-2xl"
                   >
                     {Object.entries(themes).map(([key, value]) => (
                       <button
@@ -68,7 +77,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                           setShowColorPicker(false);
                         }}
                         className={`h-6 w-6 rounded-full transition-transform hover:scale-125 ${
-                          currentTheme === key ? 'ring-2 ring-white ring-offset-2 ring-offset-black' : ''
+                          currentTheme === key ? 'ring-2 ring-primary ring-offset-2 ring-offset-[var(--background)]' : ''
                         }`}
                         style={{ backgroundColor: value.hex }}
                         title={key.charAt(0).toUpperCase() + key.slice(1)}
@@ -82,7 +91,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
             <Magnetic>
               <a 
                 href="mailto:himasara.warna@gmail.com"
-                className="rounded-full bg-white px-6 py-2 text-sm font-bold uppercase tracking-widest text-black transition-transform hover:scale-105 active:scale-95"
+                className="rounded-full bg-[var(--foreground)] px-6 py-2 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-transform hover:scale-105 active:scale-95"
               >
                 Let&apos;s Talk
               </a>
@@ -90,7 +99,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
           </div>
 
           <button
-            className="relative z-50 md:hidden"
+            className="relative z-50 md:hidden text-[var(--foreground)]"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -111,7 +120,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/95 backdrop-blur-md md:hidden"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[var(--background)]/95 backdrop-blur-md md:hidden"
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => (
@@ -122,11 +131,19 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ delay: i * 0.1, duration: 0.3 }}
                   onClick={() => handleNavigate(link.index)}
-                  className="font-display text-3xl font-bold uppercase tracking-widest text-white transition-colors hover:text-primary"
+                  className="font-display text-3xl font-bold uppercase tracking-widest text-[var(--foreground)] transition-colors hover:text-primary"
                 >
                   {link.name}
                 </motion.button>
               ))}
+              <button
+                onClick={toggleMode}
+                className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] transition-all hover:bg-[var(--foreground)]/10"
+                aria-label="Toggle dark/light mode"
+              >
+                {mode === 'dark' ? <Sun className="h-6 w-6" /> : <Moon className="h-6 w-6" />}
+              </button>
+
               <div className="mt-4 flex gap-4">
                 {Object.entries(themes).map(([key, value]) => (
                   <button
@@ -136,7 +153,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                       setMobileMenuOpen(false);
                     }}
                     className={`h-8 w-8 rounded-full transition-transform ${
-                      currentTheme === key ? 'ring-2 ring-white ring-offset-2 ring-offset-black scale-110' : ''
+                      currentTheme === key ? 'ring-2 ring-primary ring-offset-2 ring-offset-[var(--background)] scale-110' : ''
                     }`}
                     style={{ backgroundColor: value.hex }}
                   />
@@ -150,7 +167,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                 transition={{ delay: navLinks.length * 0.1, duration: 0.3 }}
                 href="mailto:himasara.warna@gmail.com"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-8 rounded-full bg-white px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform hover:scale-105 active:scale-95"
+                className="mt-8 rounded-full bg-[var(--foreground)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-transform hover:scale-105 active:scale-95"
               >
                 Let&apos;s Talk
               </motion.a>

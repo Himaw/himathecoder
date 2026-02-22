@@ -50,28 +50,28 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/5 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-primary/30"
+      className="group relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] backdrop-blur-sm transition-all duration-500 hover:border-primary/30"
     >
       <div className="flex flex-col sm:flex-row h-full min-h-[128px] md:min-h-[160px]">
         {/* Content Side */}
         <div className="flex flex-1 flex-col p-6">
           <div className="flex flex-wrap gap-2 mb-3">
             {project.stack.map((tech) => (
-              <span key={tech} className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[6px] md:text-[8px] font-bold uppercase tracking-widest text-primary/80">
+              <span key={tech} className="rounded-full border border-[var(--border)] bg-[var(--card)] px-2 py-0.5 text-[6px] md:text-[8px] font-bold uppercase tracking-widest text-primary/80">
                 {tech}
               </span>
             ))}
           </div>
 
           <div className="mb-2">
-            <h3 className="font-display text-lg md:text-xl font-black uppercase leading-tight tracking-tighter text-white">
+            <h3 className="font-display text-lg md:text-xl font-black uppercase leading-tight tracking-tighter text-[var(--foreground)]">
               {project.project}
             </h3>
             <p className="text-[6px] md:text-[8px] font-bold uppercase tracking-[0.2em] text-primary/80 mt-1">
               {project.descriptionTitle}
             </p>
           </div>
-          <p className="text-xs leading-relaxed text-zinc-400 line-clamp-2 md:line-clamp-3 mb-6">
+          <p className="text-xs leading-relaxed text-[var(--muted)] line-clamp-2 md:line-clamp-3 mb-6">
             {project.description}
           </p>
 
@@ -81,7 +81,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
                 <a 
                   href={project.url}
                   target="_blank"
-                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-white transition-all hover:bg-white hover:text-black"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--card)] text-[var(--foreground)] transition-all hover:bg-[var(--foreground)] hover:text-[var(--background)]"
                 >
                   <Github className="h-3.5 w-3.5" />
                 </a>
@@ -99,15 +99,13 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
         </div>
 
         {/* Image Side */}
-        <div className="relative w-full sm:w-2/5 min-h-[128px] md:min-h-[160px] overflow-hidden bg-black/20">
+        <div className="relative w-full sm:w-2/5 min-h-[128px] md:min-h-[160px] overflow-hidden">
           <Image
             src={project.image}
             alt={project.project}
             fill
             className="object-cover scale-100 transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-900/40 via-transparent to-transparent hidden sm:block" />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/40 via-transparent to-transparent sm:hidden" />
         </div>
       </div>
     </motion.div>
