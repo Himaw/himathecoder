@@ -52,7 +52,7 @@ export default function Experience() {
         Work <span className="text-indigo-500">Experience</span>
       </motion.h2>
 
-      <div className="flex-1 pr-4">
+      <div className="flex-1 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
         <div className="flex flex-col gap-6">
           {experiences.map((exp, index) => (
             <motion.div
@@ -62,7 +62,7 @@ export default function Experience() {
               transition={{ delay: index * 0.1 }}
               className="group relative border-l-2 border-indigo-500/20 pl-8 transition-colors hover:border-indigo-500"
             >
-              <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-zinc-900 border-2 border-indigo-500 transition-transform group-hover:scale-125" />
+              <div className="absolute -left-[7px] top-0 h-4 w-4 rounded-full bg-zinc-900 border-2 border-indigo-500 transition-transform group-hover:scale-125" />
               
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center justify-between gap-4">
@@ -86,7 +86,7 @@ export default function Experience() {
                   {exp.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-full bg-indigo-500/10 px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-indigo-500 border border-indigo-500/20"
+                      className="rounded-full bg-indigo-500/10 px-4 py-1 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-indigo-500 border border-indigo-500/20"
                     >
                       {skill}
                     </span>

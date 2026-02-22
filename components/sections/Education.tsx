@@ -45,7 +45,7 @@ export default function Education() {
         Academic <span className="text-indigo-500">Journey</span>
       </motion.h2>
 
-      <div className="flex-1 pr-4">
+      <div className="flex-1 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
         <div className="grid gap-6 md:grid-cols-2">
           {academics.map((edu, index) => (
             <motion.div
@@ -83,7 +83,7 @@ export default function Education() {
                   {edu.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-[10px] font-bold uppercase tracking-widest text-neutral-500"
+                      className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-neutral-500"
                     >
                       #{skill}
                     </span>

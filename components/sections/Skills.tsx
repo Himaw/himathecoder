@@ -21,11 +21,11 @@ export default function Skills() {
         Technical <span className="text-indigo-500">Capabilities</span>
       </motion.h2>
 
-      <div className="flex-1 pr-4 flex flex-col">
+      <div className="flex-1 pr-4 flex flex-col min-h-0 overflow-y-auto custom-scrollbar">
         <div className="flex-1">
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
-              <h3 className="mb-8 font-display text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-500">
+              <h3 className="mb-8 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-500">
                 Languages I love to work with
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -44,7 +44,7 @@ export default function Skills() {
             </div>
 
             <div>
-              <h3 className="mb-8 font-display text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-500">
+              <h3 className="mb-8 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-500">
                 Technologies I love to build with
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -65,7 +65,7 @@ export default function Skills() {
         </div>
 
         <div className="mt-8 border-t border-white/5 pt-6 pb-2">
-          <h3 className="mb-6 font-display text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-500/80">
+          <h3 className="mb-6 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-500/80">
             Contact & Socials
           </h3>
           <div className="flex flex-wrap gap-x-10 gap-y-6">

@@ -73,7 +73,7 @@ export default function Hero() {
             repeat: Infinity, 
             ease: "easeInOut" 
           }}
-          className="relative aspect-[3/4] w-full max-w-[300px] md:max-w-[400px] lg:max-w-[450px] overflow-hidden rounded-3xl border border-white/10 glass shadow-2xl"
+          className="relative aspect-[3/4] w-full max-w-[240px] md:max-w-[400px] lg:max-w-[450px] max-h-[40vh] md:max-h-none overflow-hidden rounded-3xl border border-white/10 glass shadow-2xl"
         >
           <Image
             src="/img/hima.jpg"
@@ -89,7 +89,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-4 top-10 md:-right-8 md:top-20 rounded-xl bg-indigo-500 px-4 py-2 font-display text-[10px] font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3 md:text-xs"
+          className="absolute -right-3 top-8 md:-right-8 md:top-20 rounded-xl bg-indigo-500 px-3 py-1.5 font-display text-[8px] md:text-sm font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3"
         >
           AI Enthusiast
         </motion.div>
@@ -97,7 +97,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute -left-4 bottom-10 md:-left-8 md:bottom-20 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md px-4 py-2 font-display text-[8px] font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3 md:text-[10px]"
+          className="absolute -left-3 bottom-8 md:-left-8 md:bottom-20 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md px-3 py-1.5 font-display text-[6px] md:text-[10px] font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3"
         >
           Full Stack Dev
         </motion.div>
@@ -110,7 +110,7 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500">
+        <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-zinc-500">
           Scroll to explore
         </span>
         <div className="relative h-10 w-6 rounded-full border-2 border-white/10">

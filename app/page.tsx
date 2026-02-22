@@ -175,7 +175,7 @@ export default function Home() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0 flex h-full w-full items-center justify-center pt-16 md:pt-20"
           >
-            <div className="h-full w-full max-w-[1600px]">
+            <div className="h-full w-full max-w-[1280px] md:max-w-[1600px]">
               {Component && <Component />}
             </div>
           </motion.div>
