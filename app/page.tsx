@@ -99,13 +99,13 @@ export default function Home() {
           style={{ x: moveX, y: moveY }}
           className="absolute inset-[-20%] opacity-60"
         >
-          <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full bg-indigo-500/10 blur-[120px]" />
+          <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full bg-primary/10 blur-[120px]" />
           <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full bg-blue-600/5 blur-[150px]" />
           
           {/* Dot Grid that moves with mouse and drifts */}
           <div className="absolute inset-0 h-full w-full opacity-50 bg-drift" 
             style={{ 
-              backgroundImage: 'radial-gradient(circle, #6366f1 1.2px, transparent 1.2px)', 
+              backgroundImage: 'radial-gradient(circle, var(--primary) 1.2px, transparent 1.2px)', 
               backgroundSize: '40px 40px',
               animation: 'drift 30s linear infinite'
             }} 
@@ -125,13 +125,13 @@ export default function Home() {
               className="group relative flex items-center justify-end"
             >
               {/* Slide Name Tooltip */}
-              <span className="mr-6 absolute right-full opacity-0 translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 font-display text-[10px] font-black uppercase tracking-widest text-indigo-400 whitespace-nowrap pointer-events-none">
+              <span className="mr-6 absolute right-full opacity-0 translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 font-display text-[10px] font-black uppercase tracking-widest text-primary/80 whitespace-nowrap pointer-events-none">
                 {slideItem.id}
               </span>
 
               <div className={`h-2 w-2 rounded-full transition-all duration-500 ${
                 index === currentSlide 
-                  ? 'scale-150 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]' 
+                  ? 'scale-150 bg-primary shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]' 
                   : 'bg-white/20 hover:bg-white/50'
               }`} />
             </button>
@@ -161,7 +161,7 @@ export default function Home() {
               animate={{ scaleX: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="fixed left-0 top-0 z-[100] h-1 w-full bg-indigo-500 origin-left"
+              className="fixed left-0 top-0 z-[100] h-1 w-full bg-primary origin-left"
             />
           )}
         </AnimatePresence>

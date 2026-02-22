@@ -13,7 +13,7 @@ export default function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="font-display text-indigo-500 text-xs font-bold uppercase tracking-[0.4em] md:text-sm">
+          <h2 className="font-display text-primary text-xs font-bold uppercase tracking-[0.4em] md:text-sm">
             Software Engineer
           </h2>
         </motion.div>
@@ -52,7 +52,7 @@ export default function Hero() {
               className="group relative overflow-hidden rounded-full bg-white px-8 py-4 text-xs font-bold uppercase tracking-widest text-black transition-all hover:pr-12 md:px-10 md:py-5 md:text-sm"
             >
               <span className="relative z-10">Connect on LinkedIn</span>
-              <div className="absolute inset-0 -z-0 bg-indigo-500 translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
+              <div className="absolute inset-0 -z-0 bg-primary translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
             </a>
           </Magnetic>
         </motion.div>
@@ -89,7 +89,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-3 top-8 md:-right-8 md:top-20 rounded-xl bg-indigo-500 px-3 py-1.5 font-display text-[8px] md:text-sm font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3"
+          className="absolute -right-3 top-8 md:-right-8 md:top-20 rounded-xl bg-primary px-3 py-1.5 font-display text-[8px] md:text-sm font-bold uppercase tracking-widest text-white shadow-2xl md:px-6 md:py-3"
         >
           AI Enthusiast
         </motion.div>
@@ -124,7 +124,7 @@ export default function Hero() {
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className="absolute left-1/2 top-2 h-2 w-1 -translate-x-1/2 rounded-full bg-indigo-500"
+            className="absolute left-1/2 top-2 h-2 w-1 -translate-x-1/2 rounded-full bg-primary"
           />
         </div>
       </motion.div>

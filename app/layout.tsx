@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: 'Portfolio of Himasara Warnakulasuriya, a high-end, immersive creative developer featuring smooth animations and bold typography.',
 };
 
+import { ThemeProvider } from '@/hooks/use-theme';
+
 export default function RootLayout({
   children,
 }: {
@@ -55,8 +57,10 @@ export default function RootLayout({
           content="const Hima = ( name, passion ) => Himasara, I Turn Thoughts into Digital Realities"
         />
         </head>
-      <body className="bg-zinc-950 text-zinc-50 antialiased selection:bg-indigo-500 selection:text-white" suppressHydrationWarning>
-        {children}
+      <body className="bg-zinc-950 text-zinc-50 antialiased selection:bg-primary selection:text-white" suppressHydrationWarning>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

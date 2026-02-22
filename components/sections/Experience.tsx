@@ -49,7 +49,7 @@ export default function Experience() {
         whileInView={{ opacity: 1, x: 0 }}
         className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
       >
-        Work <span className="text-indigo-500">Experience</span>
+        Work <span className="text-primary">Experience</span>
       </motion.h2>
 
       <div className="flex-1 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
@@ -60,14 +60,14 @@ export default function Experience() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="group relative border-l-2 border-indigo-500/20 pl-8 transition-colors hover:border-indigo-500"
+              className="group relative border-l-2 border-primary/20 pl-8 transition-colors hover:border-primary"
             >
-              <div className="absolute -left-[7px] top-0 h-4 w-4 rounded-full bg-zinc-900 border-2 border-indigo-500 transition-transform group-hover:scale-125" />
+              <div className="absolute -left-[7px] top-0 h-4 w-4 rounded-full bg-zinc-900 border-2 border-primary transition-transform group-hover:scale-125" />
               
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white">
-                    {exp.role} @ <span className="text-indigo-500">{exp.company}</span>
+                    {exp.role} @ <span className="text-primary">{exp.company}</span>
                   </h3>
                   <span className="text-sm font-bold uppercase tracking-widest text-neutral-500">
                     {exp.period}
@@ -86,7 +86,7 @@ export default function Experience() {
                   {exp.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-full bg-indigo-500/10 px-4 py-1 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-indigo-500 border border-indigo-500/20"
+                      className="rounded-full bg-primary/10 px-4 py-1 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20"
                     >
                       {skill}
                     </span>

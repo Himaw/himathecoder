@@ -50,14 +50,14 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/5 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-indigo-500/30"
+      className="group relative overflow-hidden rounded-2xl border border-white/5 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-primary/30"
     >
       <div className="flex flex-col sm:flex-row h-full min-h-[128px] md:min-h-[160px]">
         {/* Content Side */}
         <div className="flex flex-1 flex-col p-6">
           <div className="flex flex-wrap gap-2 mb-3">
             {project.stack.map((tech) => (
-              <span key={tech} className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[6px] md:text-[8px] font-bold uppercase tracking-widest text-indigo-400/80">
+              <span key={tech} className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[6px] md:text-[8px] font-bold uppercase tracking-widest text-primary/80">
                 {tech}
               </span>
             ))}
@@ -67,7 +67,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
             <h3 className="font-display text-lg md:text-xl font-black uppercase leading-tight tracking-tighter text-white">
               {project.project}
             </h3>
-            <p className="text-[6px] md:text-[8px] font-bold uppercase tracking-[0.2em] text-indigo-500/80 mt-1">
+            <p className="text-[6px] md:text-[8px] font-bold uppercase tracking-[0.2em] text-primary/80 mt-1">
               {project.descriptionTitle}
             </p>
           </div>
@@ -89,7 +89,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
               <a 
                 href={project.url}
                 target="_blank"
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500 text-white transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(99,102,241,0.3)]"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.3)]"
               >
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
@@ -123,7 +123,7 @@ export default function Projects() {
         whileInView={{ opacity: 1, x: 0 }}
         className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
       >
-        Selected <span className="text-indigo-500">Works</span>
+        Selected <span className="text-primary">Works</span>
       </motion.h2>
       
 

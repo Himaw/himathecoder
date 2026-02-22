@@ -18,14 +18,14 @@ export default function Skills() {
         whileInView={{ opacity: 1, x: 0 }}
         className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
       >
-        Technical <span className="text-indigo-500">Capabilities</span>
+        Technical <span className="text-primary">Capabilities</span>
       </motion.h2>
 
       <div className="flex-1 pr-4 flex flex-col min-h-0 overflow-y-auto custom-scrollbar">
         <div className="flex-1">
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
-              <h3 className="mb-8 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-500">
+              <h3 className="mb-8 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
                 Languages I love to work with
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -35,7 +35,7 @@ export default function Skills() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:text-indigo-500"
+                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
                   >
                     {lang}
                   </motion.span>
@@ -44,7 +44,7 @@ export default function Skills() {
             </div>
 
             <div>
-              <h3 className="mb-8 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-500">
+              <h3 className="mb-8 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
                 Technologies I love to build with
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -54,7 +54,7 @@ export default function Skills() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
-                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-indigo-500/50 hover:bg-indigo-500/10 hover:text-indigo-500"
+                    className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-widest transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
                   >
                     {tech}
                   </motion.span>
@@ -65,7 +65,7 @@ export default function Skills() {
         </div>
 
         <div className="mt-8 border-t border-white/5 pt-6 pb-2">
-          <h3 className="mb-6 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-500/80">
+          <h3 className="mb-6 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-primary/80">
             Contact & Socials
           </h3>
           <div className="flex flex-wrap gap-x-10 gap-y-6">
@@ -74,7 +74,7 @@ export default function Skills() {
                 <Mail className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">Email</p>
               </div>
-              <a href="mailto:himasara.warna@gmail.com" className="font-display text-sm font-bold uppercase text-white/90 hover:text-indigo-500 transition-colors">
+              <a href="mailto:himasara.warna@gmail.com" className="font-display text-sm font-bold uppercase text-white/90 hover:text-primary transition-colors">
                 himasara.warna@gmail.com
               </a>
             </div>
@@ -92,7 +92,7 @@ export default function Skills() {
                 <Linkedin className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">LinkedIn</p>
               </div>
-              <a href="https://linkedin.com/in/himasara" target="_blank" className="font-display text-sm font-bold uppercase text-white/90 hover:text-indigo-500 transition-colors">
+              <a href="https://linkedin.com/in/himasara" target="_blank" className="font-display text-sm font-bold uppercase text-white/90 hover:text-primary transition-colors">
                 in/himaofficial
               </a>
             </div>
@@ -101,7 +101,7 @@ export default function Skills() {
                 <Github className="h-3 w-3" />
                 <p className="text-[9px] font-bold uppercase tracking-widest">GitHub</p>
               </div>
-              <a href="https://github.com/Himaw" target="_blank" className="font-display text-sm font-bold uppercase text-white/90 hover:text-indigo-500 transition-colors">
+              <a href="https://github.com/Himaw" target="_blank" className="font-display text-sm font-bold uppercase text-white/90 hover:text-primary transition-colors">
                 github/Himaw
               </a>
             </div>

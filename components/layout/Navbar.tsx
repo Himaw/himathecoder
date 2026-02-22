@@ -1,9 +1,8 @@
-'use client';
-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Palette } from 'lucide-react';
+import { useTheme, themes } from '@/hooks/use-theme';
 
 import Magnetic from '@/components/ui/Magnetic';
 
@@ -20,6 +19,8 @@ interface NavbarProps {
 
 export default function Navbar({ onNavigate }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const { theme: currentTheme, setTheme } = useTheme();
 
   const handleNavigate = (index: number) => {
     onNavigate?.(index);
@@ -36,11 +37,48 @@ export default function Navbar({ onNavigate }: NavbarProps) {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <button onClick={() => handleNavigate(0)} className="group flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-indigo-500 transition-transform duration-500 group-hover:rotate-180" />
+            <div className="h-8 w-8 rounded-full bg-primary transition-transform duration-500 group-hover:rotate-180" />
             <span className="font-display text-xl font-bold tracking-tighter uppercase">HimaTheCoder</span>
           </button>
 
           <div className="hidden items-center gap-8 md:flex">
+            {/* Color Picker Toggle */}
+            <div className="relative">
+              <button
+                onClick={() => setShowColorPicker(!showColorPicker)}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/10 text-white transition-all hover:bg-white/10"
+                aria-label="Change theme color"
+              >
+                <Palette className="h-5 w-5" />
+              </button>
+              
+              <AnimatePresence>
+                {showColorPicker && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                    className="absolute right-0 top-full mt-4 flex items-center gap-2 rounded-2xl border border-white/10 bg-zinc-900/90 p-3 backdrop-blur-xl shadow-2xl"
+                  >
+                    {Object.entries(themes).map(([key, value]) => (
+                      <button
+                        key={key}
+                        onClick={() => {
+                          setTheme(key as any);
+                          setShowColorPicker(false);
+                        }}
+                        className={`h-6 w-6 rounded-full transition-transform hover:scale-125 ${
+                          currentTheme === key ? 'ring-2 ring-white ring-offset-2 ring-offset-black' : ''
+                        }`}
+                        style={{ backgroundColor: value.hex }}
+                        title={key.charAt(0).toUpperCase() + key.slice(1)}
+                      />
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <Magnetic>
               <a 
                 href="mailto:himasara.warna@gmail.com"
@@ -84,11 +122,27 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ delay: i * 0.1, duration: 0.3 }}
                   onClick={() => handleNavigate(link.index)}
-                  className="font-display text-3xl font-bold uppercase tracking-widest text-white transition-colors hover:text-indigo-400"
+                  className="font-display text-3xl font-bold uppercase tracking-widest text-white transition-colors hover:text-primary"
                 >
                   {link.name}
                 </motion.button>
               ))}
+              <div className="mt-4 flex gap-4">
+                {Object.entries(themes).map(([key, value]) => (
+                  <button
+                    key={key}
+                    onClick={() => {
+                      setTheme(key as any);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`h-8 w-8 rounded-full transition-transform ${
+                      currentTheme === key ? 'ring-2 ring-white ring-offset-2 ring-offset-black scale-110' : ''
+                    }`}
+                    style={{ backgroundColor: value.hex }}
+                  />
+                ))}
+              </div>
+
               <motion.a
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -96,7 +150,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                 transition={{ delay: navLinks.length * 0.1, duration: 0.3 }}
                 href="mailto:himasara.warna@gmail.com"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-4 rounded-full bg-white px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform hover:scale-105 active:scale-95"
+                className="mt-8 rounded-full bg-white px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform hover:scale-105 active:scale-95"
               >
                 Let&apos;s Talk
               </motion.a>

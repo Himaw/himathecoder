@@ -42,7 +42,7 @@ export default function Education() {
         whileInView={{ opacity: 1, x: 0 }}
         className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
       >
-        Academic <span className="text-indigo-500">Journey</span>
+        Academic <span className="text-primary">Journey</span>
       </motion.h2>
 
       <div className="flex-1 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
@@ -53,13 +53,13 @@ export default function Education() {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="group relative flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-6 transition-all hover:border-indigo-500/50 hover:bg-indigo-500/5"
+              className="group relative flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-6 transition-all hover:border-primary/50 hover:bg-primary/5"
             >
               <div className="flex flex-col gap-1">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-500">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
                   {edu.period}
                 </span>
-                <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white group-hover:text-indigo-500 transition-colors">
+                <h3 className="font-display text-xl font-bold uppercase tracking-tight text-white group-hover:text-primary transition-colors">
                   {edu.degree}
                 </h3>
                 <p className="text-sm font-medium uppercase tracking-widest text-neutral-400">
