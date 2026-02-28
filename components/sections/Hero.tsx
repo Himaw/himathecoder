@@ -6,8 +6,8 @@ import Magnetic from '@/components/ui/Magnetic';
 
 export default function Hero() {
   return (
-    <div className="relative flex min-h-0 h-full w-full flex-col items-center justify-center px-5 gap-2 md:flex-row md:gap-12 md:px-12 lg:gap-20">
-      <div className="flex flex-col gap-3 md:gap-6 text-center md:text-left z-10 w-full md:w-1/2">
+    <div className="relative flex min-h-0 h-full w-full flex-col items-center justify-center px-5 gap-4 md:flex-row md:gap-12 md:px-12 lg:gap-20">
+      <div className="flex flex-col gap-5 md:gap-6 text-center md:text-left z-10 w-full md:w-1/2">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -45,16 +45,27 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex justify-center md:justify-start"
         >
-          <Magnetic>
+          <div className="md:block hidden">
+            <Magnetic>
+              <a 
+                href="https://linkedin.com/in/himaofficial" 
+                target="_blank" 
+                className="group relative overflow-hidden rounded-full bg-[var(--foreground)] px-10 py-5 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-all hover:pr-12"
+              >
+                <span className="relative z-10">Connect on LinkedIn</span>
+                <div className="absolute inset-0 -z-0 bg-primary translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
+              </a>
+            </Magnetic>
+          </div>
+          <div className="md:hidden block">
             <a 
               href="https://linkedin.com/in/himaofficial" 
               target="_blank" 
-              className="group relative overflow-hidden rounded-full bg-[var(--foreground)] px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-[var(--background)] transition-all hover:pr-12 md:px-10 md:py-5 md:text-sm"
+              className="rounded-full bg-primary px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-[#ffffff] glow-pulse"
             >
-              <span className="relative z-10">Connect on LinkedIn</span>
-              <div className="absolute inset-0 -z-0 bg-primary translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
+              Connect on LinkedIn
             </a>
-          </Magnetic>
+          </div>
         </motion.div>
       </div>
 

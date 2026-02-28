@@ -99,13 +99,25 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
         </div>
 
         {/* Image Side */}
-        <div className="relative w-full sm:w-2/5 min-h-[128px] md:min-h-[160px] overflow-hidden">
-          <Image
-            src={project.image}
-            alt={project.project}
-            fill
-            className="object-cover scale-100 transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
-          />
+        <div className="relative w-full sm:w-2/5 overflow-hidden">
+          {/* Mobile: show full square image */}
+          <div className="block sm:hidden aspect-square relative">
+            <Image
+              src={project.image}
+              alt={project.project}
+              fill
+              className="object-contain transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
+            />
+          </div>
+          {/* Desktop: fill the side panel */}
+          <div className="hidden sm:block relative min-h-[128px] md:min-h-[160px] h-full">
+            <Image
+              src={project.image}
+              alt={project.project}
+              fill
+              className="object-cover scale-100 transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110"
+            />
+          </div>
         </div>
       </div>
     </motion.div>
