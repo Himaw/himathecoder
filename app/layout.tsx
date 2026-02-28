@@ -13,8 +13,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Himasara | Creative Developer',
-  description: 'Portfolio of Himasara Warnakulasuriya, a high-end, immersive creative developer featuring smooth animations and bold typography.',
+  title: 'Himasara | Portfolio',
+  description: 'Portfolio of Himasara Warnakulasuriya, a high-end, immersive software engineer.',
 };
 
 import { ThemeProvider } from '@/hooks/use-theme';
@@ -45,16 +45,11 @@ export default function RootLayout({
           href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link
-          rel="mask-icon"
-          href="/favicon/safari-pinned-tab.svg"
-          color="#5bbad5"
-        />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <meta
           name="description"
-          content="const Hima = ( name, passion ) => Himasara, I Turn Thoughts into Digital Realities"
+          content="I Turn Thoughts into Digital Realities. A passionate software engineer excelling in problem-solving, full-stack innovation, and crafting immersive digital experiences."
         />
         </head>
       <body className="antialiased selection:bg-primary selection:text-white" suppressHydrationWarning>

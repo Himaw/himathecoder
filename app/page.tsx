@@ -53,14 +53,30 @@ export default function Home() {
   const moveX = useTransform(springX, [0, 2000], [-100, 100]);
   const moveY = useTransform(springY, [0, 2000], [-100, 100]);
 
-  const isEmbeddedScroll = (target: HTMLElement | null): boolean => {
+  const isEmbeddedScroll = (target: HTMLElement | null, deltaY?: number): boolean => {
     let current = target;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     while (current && current !== document.body) {
-      if (current.classList.contains('custom-scrollbar') || 
-          window.getComputedStyle(current).overflowY === 'auto' || 
-          window.getComputedStyle(current).overflowY === 'scroll') {
-        // If the element is scrollable and has content to scroll, let it handle the event
-        if (current.scrollHeight > current.clientHeight) {
+      const isScrollable = current.classList.contains('custom-scrollbar') || 
+                           window.getComputedStyle(current).overflowY === 'auto' || 
+                           window.getComputedStyle(current).overflowY === 'scroll';
+      
+      if (isScrollable && current.scrollHeight > current.clientHeight) {
+        // On mobile, always block slide transitions if we're over a scrollable area
+        if (isMobile) return true;
+
+        // On desktop, only block if there's actual room to scroll in that direction
+        if (deltaY !== undefined) {
+          if (deltaY > 0) { // Scrolling Down
+            const canScrollDown = current.scrollTop + current.clientHeight < current.scrollHeight - 2;
+            if (canScrollDown) return true;
+          } else if (deltaY < 0) { // Scrolling Up
+            const canScrollUp = current.scrollTop > 2;
+            if (canScrollUp) return true;
+          }
+        } else {
+          // If no deltaY provided (e.g. TouchStart), assume it's embedded
           return true;
         }
       }
@@ -72,8 +88,8 @@ export default function Home() {
   const handleScroll = useCallback((e: WheelEvent) => {
     if (isAnimating) return;
     
-    // Check if scrolling inside a scrollable child
-    if (isEmbeddedScroll(e.target as HTMLElement)) return;
+    // Check if scrolling inside a scrollable child, passing deltaY for boundary detection
+    if (isEmbeddedScroll(e.target as HTMLElement, e.deltaY)) return;
 
     const threshold = 80;
     if (e.deltaY > threshold) {
@@ -112,7 +128,7 @@ export default function Home() {
   const handleTouchEnd = useCallback((e: TouchEvent) => {
     if (touchStartY.current === null || isAnimating) return;
     
-    // Check if touching inside a scrollable child
+    // Check if touching inside a scrollable child (deltaY not applicable here simple swipe)
     if (isEmbeddedScroll(e.target as HTMLElement)) {
       touchStartY.current = null;
       return;

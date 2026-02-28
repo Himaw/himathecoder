@@ -36,7 +36,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="max-w-xl text-sm text-[var(--muted)] md:text-base lg:text-lg leading-relaxed"
         >
-          I Turn Thoughts into Digital Realities. A passionate software developer excelling in problem-solving, full-stack innovation, and crafting immersive digital experiences.
+          I Turn Thoughts into Digital Realities. A passionate software engineer excelling in problem-solving, full-stack innovation, and crafting immersive digital experiences.
         </motion.p>
 
         <motion.div
