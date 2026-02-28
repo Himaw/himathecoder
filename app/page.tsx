@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'motion/react';
 import CustomCursor from '@/components/ui/CustomCursor';
 import Navbar from '@/components/layout/Navbar';
@@ -9,6 +9,7 @@ import Experience from '@/components/sections/Experience';
 import Education from '@/components/sections/Education';
 import Projects from '@/components/sections/Projects';
 import Skills from '@/components/sections/Skills';
+import Preloader from '@/components/ui/Preloader';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
 const slides = [
@@ -22,6 +23,26 @@ const slides = [
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const touchStartY = useRef<number | null>(null);
+
+  useEffect(() => {
+    const handleLoad = () => {
+      // Ensure minimum display time for the premium feel
+      setTimeout(() => {
+        setIsLoading(false);
+        document.body.style.cursor = 'default';
+        window.scrollTo(0, 0);
+      }, 3000);
+    };
+
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+      return () => window.removeEventListener('load', handleLoad);
+    }
+  }, []);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -32,15 +53,35 @@ export default function Home() {
   const moveX = useTransform(springX, [0, 2000], [-100, 100]);
   const moveY = useTransform(springY, [0, 2000], [-100, 100]);
 
+  const isEmbeddedScroll = (target: HTMLElement | null): boolean => {
+    let current = target;
+    while (current && current !== document.body) {
+      if (current.classList.contains('custom-scrollbar') || 
+          window.getComputedStyle(current).overflowY === 'auto' || 
+          window.getComputedStyle(current).overflowY === 'scroll') {
+        // If the element is scrollable and has content to scroll, let it handle the event
+        if (current.scrollHeight > current.clientHeight) {
+          return true;
+        }
+      }
+      current = current.parentElement;
+    }
+    return false;
+  };
+
   const handleScroll = useCallback((e: WheelEvent) => {
     if (isAnimating) return;
+    
+    // Check if scrolling inside a scrollable child
+    if (isEmbeddedScroll(e.target as HTMLElement)) return;
 
-    if (e.deltaY > 50) {
+    const threshold = 80;
+    if (e.deltaY > threshold) {
       if (currentSlide < slides.length - 1) {
         setIsAnimating(true);
         setCurrentSlide((prev) => prev + 1);
       }
-    } else if (e.deltaY < -50) {
+    } else if (e.deltaY < -threshold) {
       if (currentSlide > 0) {
         setIsAnimating(true);
         setCurrentSlide((prev) => prev - 1);
@@ -64,6 +105,31 @@ export default function Home() {
     }
   }, [currentSlide, isAnimating]);
 
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback((e: TouchEvent) => {
+    if (touchStartY.current === null || isAnimating) return;
+    
+    // Check if touching inside a scrollable child
+    if (isEmbeddedScroll(e.target as HTMLElement)) {
+      touchStartY.current = null;
+      return;
+    }
+
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+    const threshold = 100; // Increased for better deliberate swipes
+    if (deltaY > threshold && currentSlide < slides.length - 1) {
+      setIsAnimating(true);
+      setCurrentSlide((prev) => prev + 1);
+    } else if (deltaY < -threshold && currentSlide > 0) {
+      setIsAnimating(true);
+      setCurrentSlide((prev) => prev - 1);
+    }
+    touchStartY.current = null;
+  }, [currentSlide, isAnimating]);
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -72,12 +138,16 @@ export default function Home() {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('wheel', handleScroll);
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('wheel', handleScroll);
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [handleScroll, handleKeyDown, mouseX, mouseY]);
+  }, [handleScroll, handleKeyDown, handleTouchStart, handleTouchEnd, mouseX, mouseY]);
 
   const goToSlide = (index: number) => {
     if (isAnimating || index === currentSlide || index < 0 || index >= slides.length) return;
@@ -89,9 +159,13 @@ export default function Home() {
   const Component = slide?.component;
 
   return (
-    <main className="relative h-screen w-screen overflow-hidden text-[var(--foreground)]">
-      <CustomCursor />
-      <Navbar onNavigate={goToSlide} />
+    <main className="relative h-[100dvh] w-screen overflow-hidden text-[var(--foreground)] touch-none">
+      <AnimatePresence mode='wait'>
+        {isLoading && <Preloader />}
+      </AnimatePresence>
+      <div className={`relative w-full h-full ${isLoading ? 'invisible' : 'visible'}`}>
+        <CustomCursor />
+        <Navbar onNavigate={goToSlide} />
 
       {/* Persistent Interactive Background */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[var(--background)] transition-colors duration-500">
@@ -114,10 +188,9 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex h-full w-full flex-col">
-        <Navbar onNavigate={goToSlide} />
 
         {/* Navigation Dots */}
-        <div className="fixed right-8 top-1/2 z-50 flex -translate-y-1/2 flex-col gap-6">
+        <div className="fixed right-8 top-1/2 z-50 hidden md:flex -translate-y-1/2 flex-col gap-6">
           {slides.map((slideItem, index) => (
             <button
               key={slideItem.id}
@@ -138,19 +211,46 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Slide Controls (Mobile) */}
-        <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-2 md:hidden">
-          <button 
+        {/* Slide Indicator (Mobile) */}
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:hidden">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`rounded-full transition-all duration-300 ${
+                index === currentSlide
+                  ? 'h-2 w-6 bg-primary'
+                  : 'h-2 w-2 bg-foreground/20'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Mobile Navigation Buttons (Tactile Up/Down) */}
+        <div className="fixed right-6 bottom-8 z-50 flex md:hidden flex-col gap-4">
+          <button
             onClick={() => currentSlide > 0 && goToSlide(currentSlide - 1)}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md"
+            disabled={currentSlide === 0}
+            className={`p-3 rounded-full border transition-all duration-300 ${
+              currentSlide === 0 
+                ? 'opacity-10 scale-90 border-primary/20 text-primary/20' 
+                : 'bg-[var(--background)]/80 backdrop-blur-md border-primary/50 text-primary hover:bg-primary hover:text-white active:scale-90 shadow-lg shadow-primary/10'
+            }`}
+            aria-label="Previous Slide"
           >
-            <ChevronUp className="h-6 w-6 text-[var(--foreground)]" />
+            <ChevronUp size={24} />
           </button>
-          <button 
+          <button
             onClick={() => currentSlide < slides.length - 1 && goToSlide(currentSlide + 1)}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-foreground/5 border border-foreground/10 backdrop-blur-md"
+            disabled={currentSlide === slides.length - 1}
+            className={`p-3 rounded-full border transition-all duration-300 ${
+              currentSlide === slides.length - 1 
+                ? 'opacity-10 scale-90 border-primary/20 text-primary/20' 
+                : 'bg-[var(--background)]/80 backdrop-blur-md border-primary/50 text-primary hover:bg-primary hover:text-white active:scale-90 shadow-lg shadow-primary/10'
+            }`}
+            aria-label="Next Slide"
           >
-            <ChevronDown className="h-6 w-6 text-[var(--foreground)]" />
+            <ChevronDown size={24} />
           </button>
         </div>
 
@@ -173,14 +273,15 @@ export default function Home() {
             animate={{ y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
             exit={{ y: '-20%', opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 flex h-full w-full items-center justify-center pt-16 md:pt-20"
+            className="absolute inset-0 flex h-full w-full items-center justify-center pt-12 md:pt-20"
           >
             <div className="h-full w-full max-w-[1280px] md:max-w-[1600px]">
               {Component && <Component />}
             </div>
           </motion.div>
         </AnimatePresence>
+        </div>
       </div>
-  </main>
-);
+    </main>
+  );
 }

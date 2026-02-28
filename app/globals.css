@@ -51,6 +51,14 @@
   }
 }
 
+/* Mobile smooth scrolling & touch improvements */
+@layer base {
+  .custom-scrollbar {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

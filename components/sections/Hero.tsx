@@ -6,14 +6,14 @@ import Magnetic from '@/components/ui/Magnetic';
 
 export default function Hero() {
   return (
-    <div className="relative flex min-h-0 h-full w-full flex-col items-center justify-center px-6 md:flex-row md:gap-12 md:px-12 lg:gap-20">
-      <div className="flex flex-col gap-6 text-center md:text-left z-10 w-full md:w-1/2">
+    <div className="relative flex min-h-0 h-full w-full flex-col items-center justify-center px-5 gap-2 md:flex-row md:gap-12 md:px-12 lg:gap-20">
+      <div className="flex flex-col gap-3 md:gap-6 text-center md:text-left z-10 w-full md:w-1/2">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="font-display text-primary text-xs font-bold uppercase tracking-[0.4em] md:text-sm">
+          <h2 className="font-display text-primary text-sm font-bold uppercase tracking-[0.4em] md:text-sm">
             Software Engineer
           </h2>
         </motion.div>
@@ -23,7 +23,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-            className="font-display text-[clamp(2.5rem,6vw,6rem)] font-black leading-[0.9] tracking-tighter uppercase text-[var(--foreground)]"
+            className="font-display text-[clamp(3rem,6vw,6rem)] font-black leading-[0.9] tracking-tighter uppercase text-[var(--foreground)]"
           >
             Himasara <br />
             <span className="text-[0.6em] text-[var(--muted)]">Warnakulasuriya</span>
@@ -49,7 +49,7 @@ export default function Hero() {
             <a 
               href="https://linkedin.com/in/himaofficial" 
               target="_blank" 
-              className="group relative overflow-hidden rounded-full bg-[var(--foreground)] px-8 py-4 text-xs font-bold uppercase tracking-widest text-[var(--background)] transition-all hover:pr-12 md:px-10 md:py-5 md:text-sm"
+              className="group relative overflow-hidden rounded-full bg-[var(--foreground)] px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-[var(--background)] transition-all hover:pr-12 md:px-10 md:py-5 md:text-sm"
             >
               <span className="relative z-10">Connect on LinkedIn</span>
               <div className="absolute inset-0 -z-0 bg-primary translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
@@ -62,7 +62,7 @@ export default function Hero() {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-        className="relative mt-8 md:mt-0 w-full md:w-1/2 flex justify-center items-center"
+        className="relative mt-4 md:mt-0 w-full md:w-1/2 flex justify-center items-center"
       >
         <motion.div 
           animate={{ 
@@ -73,7 +73,7 @@ export default function Hero() {
             repeat: Infinity, 
             ease: "easeInOut" 
           }}
-          className="relative aspect-[3/4] w-full max-w-[240px] md:max-w-[400px] lg:max-w-[450px] max-h-[40vh] md:max-h-none overflow-hidden rounded-3xl border border-[var(--border)] glass shadow-2xl"
+          className="relative aspect-[3/4] w-full max-w-[220px] md:max-w-[400px] lg:max-w-[450px] max-h-[33vh] md:max-h-none overflow-hidden rounded-3xl border border-[var(--border)] glass shadow-2xl"
         >
           <Image
             src="/img/hima.jpg"
@@ -108,7 +108,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-3 hidden md:flex"
       >
         <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-[var(--muted)]">
           Scroll to explore

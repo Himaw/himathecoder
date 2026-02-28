@@ -115,14 +115,16 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 
 export default function Projects() {
   return (
-     <div className="flex h-full w-full flex-col px-6 py-10 md:px-12">
-      <motion.h2
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
-      >
-        Selected <span className="text-primary">Works</span>
-      </motion.h2>
+     <div className="flex h-full w-full flex-col px-5 py-6 md:px-12 md:py-10">
+      <div className="sticky top-0 z-10 backdrop-blur-md pb-4 md:pb-6 -mx-5 px-5 md:-mx-12 md:px-12">
+        <motion.h2
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          className="font-display text-3xl md:text-5xl font-black uppercase tracking-tighter"
+        >
+          Selected <span className="text-primary">Works</span>
+        </motion.h2>
+      </div>
       
 
       <div className="flex-1 pr-4 min-h-0 overflow-y-auto custom-scrollbar">

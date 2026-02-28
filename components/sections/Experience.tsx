@@ -43,16 +43,18 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <div className="flex h-full w-full flex-col px-6 py-10 md:px-12">
-      <motion.h2
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
-      >
-        Work <span className="text-primary">Experience</span>
-      </motion.h2>
+    <div className="flex h-full w-full flex-col px-5 py-6 md:px-12 md:py-10">
+      <div className="sticky top-0 z-10 backdrop-blur-md pb-4 md:pb-6 -mx-5 px-5 md:-mx-12 md:px-12">
+        <motion.h2
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          className="font-display text-3xl md:text-5xl font-black uppercase tracking-tighter"
+        >
+          Work <span className="text-primary">Experience</span>
+        </motion.h2>
+      </div>
 
-      <div className="flex-1 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
+      <div className="flex-1 pl-2 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
         <div className="flex flex-col gap-6">
           {experiences.map((exp, index) => (
             <motion.div
@@ -62,7 +64,7 @@ export default function Experience() {
               transition={{ delay: index * 0.1 }}
               className="group relative border-l-2 border-primary/20 pl-8 transition-colors hover:border-primary"
             >
-              <div className="absolute -left-[7px] top-0 h-4 w-4 rounded-full bg-[var(--background)] border-2 border-primary transition-transform group-hover:scale-125" />
+              <div className="absolute -left-[7px] md:-left-[9px] top-[7px] md:top-[9px] h-4 w-4 rounded-full bg-[var(--background)] border-2 border-primary" />
               
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center justify-between gap-4">

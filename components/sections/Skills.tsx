@@ -12,14 +12,16 @@ const technologies = [
 
 export default function Skills() {
   return (
-    <div className="flex h-full w-full flex-col px-6 py-10 md:px-12">
-      <motion.h2
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        className="mb-8 font-display text-4xl font-black uppercase tracking-tighter md:text-5xl"
-      >
-        Technical <span className="text-primary">Capabilities</span>
-      </motion.h2>
+    <div className="flex h-full w-full flex-col px-5 py-6 md:px-12 md:py-10">
+      <div className="sticky top-0 z-10 backdrop-blur-md pb-4 md:pb-6 -mx-5 px-5 md:-mx-12 md:px-12">
+        <motion.h2
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          className="font-display text-3xl md:text-5xl font-black uppercase tracking-tighter"
+        >
+          Technical <span className="text-primary">Capabilities</span>
+        </motion.h2>
+      </div>
 
       <div className="flex-1 pr-4 flex flex-col min-h-0 overflow-y-auto custom-scrollbar">
         <div className="flex-1">
@@ -64,7 +66,7 @@ export default function Skills() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-[var(--border)] pt-6 pb-2">
+        <div className="shrink-0 mt-6 md:mt-8 border-t border-[var(--border)] pt-4 md:pt-6 pb-8 md:pb-2">
           <h3 className="mb-6 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-primary/80">
             Contact & Socials
           </h3>
