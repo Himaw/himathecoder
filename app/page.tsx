@@ -27,13 +27,21 @@ export default function Home() {
   const touchStartY = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleLoad = () => {
-      // Ensure minimum display time for the premium feel
-      setTimeout(() => {
-        setIsLoading(false);
-        document.body.style.cursor = 'default';
-        window.scrollTo(0, 0);
-      }, 3000);
+    const preloadHeroImage = () =>
+      new Promise<void>((resolve) => {
+        const img = new window.Image();
+        img.onload = () => resolve();
+        img.onerror = () => resolve(); // Don't block forever on error
+        img.src = '/img/hima.jpg';
+      });
+
+    const handleLoad = async () => {
+      // Wait for the hero image to load
+      await preloadHeroImage();
+      // We don't set setIsLoading(false) here anymore. 
+      // Instead, we wait for Preloader to finish its sequence.
+      document.body.style.cursor = 'default';
+      window.scrollTo(0, 0);
     };
 
     if (document.readyState === 'complete') {
@@ -177,7 +185,7 @@ export default function Home() {
   return (
     <main className="relative h-[100dvh] w-screen overflow-hidden text-[var(--foreground)] touch-none">
       <AnimatePresence mode='wait'>
-        {isLoading && <Preloader />}
+        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
       <div className={`relative w-full h-full ${isLoading ? 'invisible' : 'visible'}`}>
         <CustomCursor />

@@ -4,24 +4,33 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useTheme, themes } from '@/hooks/use-theme';
 
-export default function Preloader() {
+export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   const { mode, theme } = useTheme();
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
-  const words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्ते", "Hallå", "Guten Tag", "Welcome"];
+  const words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्ते", "สวัสดี", "မင်္ဂလာပါ", "ආයුබෝවන්", "안녕하세요", "こんにちは", "مرحبا", "Jambo", "你好", "Merhaba", "Привет", "Hallå", "Guten Tag", "Selamat", "Γεια σας", "Hallo", "Cześć", "Kumusta", "Welcome"];
 
   useEffect(() => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
 
+    let delay = 150;
+    if (index === 0) {
+      delay = 1000;
+    } else if (index === words.length - 1) {
+      delay = 2000;
+    }
+
     const timeout = setTimeout(() => {
       if (index < words.length - 1) {
         setIndex(index + 1);
+      } else if (onComplete) {
+        onComplete();
       }
-    }, index === 0 ? 1000 : 150);
+    }, delay);
 
     return () => clearTimeout(timeout);
-  }, [index]);
+  }, [index, onComplete, words.length]);
 
   const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width / 2} ${dimension.height + 300} 0 ${dimension.height} L0 0`;
   const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width / 2} ${dimension.height} 0 ${dimension.height} L0 0`;
