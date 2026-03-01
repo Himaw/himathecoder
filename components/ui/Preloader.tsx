@@ -9,7 +9,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
-  const words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्ते", "สวัสดี", "မင်္ဂလာပါ", "ආයුබෝවන්", "안녕하세요", "こんにちは", "مرحبا", "Jambo", "你好", "Merhaba", "Привет", "Hallå", "Guten Tag", "Selamat", "Γεια σας", "Hallo", "Cześć", "Kumusta", "Welcome"];
+  const words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्ते", "สวัสดี", "မင်္ဂလာပါ", "ආයුබෝවන්", "안녕하세요", "こんにちは", "مرحبا", "Jambo", "你好", "Hallå", "Guten Tag", "Selamat", "Hallo", "Kumusta", "Welcome"];
 
   useEffect(() => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -18,7 +18,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
     if (index === 0) {
       delay = 1000;
     } else if (index === words.length - 1) {
-      delay = 2000;
+      delay = 1000;
     }
 
     const timeout = setTimeout(() => {
