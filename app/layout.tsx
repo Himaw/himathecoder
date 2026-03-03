@@ -27,8 +27,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/svg+xml" href="/favicon/coin-indigo.svg" />
-        <link rel="apple-touch-icon" href="/favicon/coin-indigo.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="theme-color" content="#6366f1" id="theme-color-meta" />
@@ -65,13 +69,6 @@ export default function RootLayout({
                   const themeData = themes[theme] || themes.indigo;
                   document.documentElement.style.setProperty('--primary', themeData.hex);
                   document.documentElement.style.setProperty('--primary-rgb', themeData.rgb);
-                  
-                  // Update favicon and theme-color meta tag instantly
-                  const favicon = document.querySelector("link[rel*='icon']");
-                  if (favicon) favicon.href = "/favicon/coin-" + theme + ".svg";
-                  
-                  const appleIcon = document.querySelector("link[rel='apple-touch-icon']");
-                  if (appleIcon) appleIcon.href = "/favicon/coin-" + theme + ".svg";
                   
                   const themeMeta = document.getElementById('theme-color-meta');
                   if (themeMeta) themeMeta.setAttribute('content', themeData.hex);

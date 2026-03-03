@@ -51,16 +51,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.style.setProperty('--primary', hex);
     document.documentElement.style.setProperty('--primary-rgb', rgb);
 
-    // Update Favicon and mobile-specific icons dynamically
+    // Update mobile address bar color
     if (typeof window !== 'undefined') {
-      const iconLinks = document.querySelectorAll("link[rel*='icon']");
-      iconLinks.forEach(link => {
-        (link as HTMLLinkElement).href = `/favicon/coin-${color}.svg`;
-      });
-
-      const appleIcon = document.querySelector("link[rel='apple-touch-icon']") as HTMLLinkElement;
-      if (appleIcon) appleIcon.href = `/favicon/coin-${color}.svg`;
-
       const themeMeta = document.getElementById('theme-color-meta');
       if (themeMeta) themeMeta.setAttribute('content', hex);
     }
