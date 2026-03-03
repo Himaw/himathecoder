@@ -51,18 +51,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.style.setProperty('--primary', hex);
     document.documentElement.style.setProperty('--primary-rgb', rgb);
 
-    // Update Favicon dynamically to match theme using static SVG files
+    // Update Favicon and mobile-specific icons dynamically
     if (typeof window !== 'undefined') {
-      const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
-      if (link) {
-        link.href = `/favicon/coin-${color}.svg`;
-      } else {
-        const newLink = document.createElement('link');
-        newLink.rel = 'icon';
-        newLink.type = 'image/svg+xml';
-        newLink.href = `/favicon/coin-${color}.svg`;
-        document.head.appendChild(newLink);
-      }
+      const iconLinks = document.querySelectorAll("link[rel*='icon']");
+      iconLinks.forEach(link => {
+        (link as HTMLLinkElement).href = `/favicon/coin-${color}.svg`;
+      });
+
+      const appleIcon = document.querySelector("link[rel='apple-touch-icon']") as HTMLLinkElement;
+      if (appleIcon) appleIcon.href = `/favicon/coin-${color}.svg`;
+
+      const themeMeta = document.getElementById('theme-color-meta');
+      if (themeMeta) themeMeta.setAttribute('content', hex);
     }
   }
 
