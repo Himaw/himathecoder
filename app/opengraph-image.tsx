@@ -67,7 +67,6 @@ export default function Image() {
               borderRadius: '99px',
               fontSize: '18px',
               fontWeight: 'bold',
-              width: 'max-content'
             }}>
               CONNECT ON LINKEDIN
             </div>
@@ -87,7 +86,7 @@ export default function Image() {
             }}>
                 <img 
                   src={profileImage}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '100%' }}
                 />
             </div>
 
@@ -113,7 +112,6 @@ export default function Image() {
               bottom: '60px',
               left: '-40px',
               backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
               color: 'white',
               padding: '10px 20px',
