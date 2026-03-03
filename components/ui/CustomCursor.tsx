@@ -52,11 +52,11 @@ export default function CustomCursor() {
       <motion.div
         animate={{
           scale: isHovering ? 2.5 : 1,
-          backgroundColor: isHovering ? 'rgba(16, 185, 129, 0.3)' : 'rgba(255, 255, 255, 1)',
+          backgroundColor: isHovering ? 'rgba(16, 185, 129, 0.3)' : 'var(--foreground)',
           border: isHovering ? '1px solid rgba(16, 185, 129, 0.5)' : 'none',
         }}
         transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-        className="h-4 w-4 rounded-full mix-blend-difference"
+        className="h-4 w-4 rounded-full"
       />
     </motion.div>
   );

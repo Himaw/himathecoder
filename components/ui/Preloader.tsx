@@ -4,12 +4,16 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { useTheme, themes } from '@/hooks/use-theme';
 
-export default function Preloader({ onComplete }: { onComplete?: () => void }) {
+export default function Preloader({ 
+  onComplete, 
+  words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्ते", "สวัสดี", "မင်္ဂလာပါ", "ආයුබෝවන්", "안녕하세요", "こんにちは", "مرحبا", "Jambo", "你好", "Hallå", "Guten Tag", "Selamat", "Hallo", "Kumusta", "Welcome"]
+}: { 
+  onComplete?: () => void;
+  words?: string[];
+}) {
   const { mode, theme } = useTheme();
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
-
-  const words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्ते", "สวัสดี", "မင်္ဂလာပါ", "ආයුබෝවන්", "안녕하세요", "こんにちは", "مرحبا", "Jambo", "你好", "Hallå", "Guten Tag", "Selamat", "Hallo", "Kumusta", "Welcome"];
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

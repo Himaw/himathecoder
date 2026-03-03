@@ -1,7 +1,9 @@
+'use client';
+
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
-import { Menu, X, Palette, Sun, Moon } from 'lucide-react';
+import { Menu, X, Palette, Sun, Moon, Gamepad2 } from 'lucide-react';
 import { useTheme, themes } from '@/hooks/use-theme';
 
 import Magnetic from '@/components/ui/Magnetic';
@@ -36,10 +38,10 @@ export default function Navbar({ onNavigate }: NavbarProps) {
         className="fixed top-0 z-50 w-full px-4 py-4 md:px-12 md:py-8"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <button onClick={() => handleNavigate(0)} className="group flex items-center gap-2">
+          <Link href="/" onClick={() => handleNavigate(0)} className="group flex items-center gap-2">
             <div className="h-8 w-8 rounded-full bg-primary transition-transform duration-500 group-hover:rotate-180" />
             <span className="font-display text-xl font-bold tracking-tighter uppercase text-[var(--foreground)]">HimaTheCoder</span>
-          </button>
+          </Link>
 
           <div className="hidden items-center gap-4 md:flex">
             {/* Mode Toggle */}
@@ -87,6 +89,16 @@ export default function Navbar({ onNavigate }: NavbarProps) {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Game Page Toggle (Desktop Only) */}
+            <Link
+              href="/game"
+              className="hidden lg:flex h-10 w-10 items-center justify-center rounded-full bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] transition-all hover:bg-[var(--foreground)]/10"
+              aria-label="Play Game"
+              title="Play Game"
+            >
+              <Gamepad2 className="h-5 w-5" />
+            </Link>
 
             <Magnetic>
               <a 
