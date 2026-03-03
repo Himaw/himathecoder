@@ -50,6 +50,20 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const { hex, rgb } = themes[color];
     document.documentElement.style.setProperty('--primary', hex);
     document.documentElement.style.setProperty('--primary-rgb', rgb);
+
+    // Update Favicon dynamically to match theme using static SVG files
+    if (typeof window !== 'undefined') {
+      const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+      if (link) {
+        link.href = `/favicon/coin-${color}.svg`;
+      } else {
+        const newLink = document.createElement('link');
+        newLink.rel = 'icon';
+        newLink.type = 'image/svg+xml';
+        newLink.href = `/favicon/coin-${color}.svg`;
+        document.head.appendChild(newLink);
+      }
+    }
   }
 
   function applyThemeMode(newMode: ThemeMode) {

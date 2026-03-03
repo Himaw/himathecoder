@@ -119,6 +119,41 @@ export default function Hero() {
         >
           Full Stack Dev
         </motion.div>
+
+        {/* Game Teaser */}
+        <motion.a
+          href="/game"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ 
+            opacity: 1, 
+            scale: 1,
+            y: [0, -5, 0]
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ 
+            opacity: { duration: 0.8, delay: 1.2 },
+            scale: { duration: 0.8, delay: 1.2 },
+            y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+          }}
+          className="absolute -right-2 -bottom-2 md:-right-4 md:-bottom-4 z-20 hidden lg:flex flex-col items-center gap-1 group"
+        >
+          <div className="relative rounded-2xl bg-primary/10 border border-primary/20 backdrop-blur-xl px-4 py-2 md:px-6 md:py-3 shadow-[0_0_20px_rgba(var(--primary-rgb),0.2)] group-hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.4)] transition-all duration-300">
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="flex flex-col">
+                <span className="text-[10px] md:text-sm font-bold text-primary leading-tight text-glow">Bored?</span>
+                <span className="text-[8px] md:text-[10px] text-[var(--foreground)] font-medium leading-none whitespace-nowrap">Play Tetris</span>
+              </div>
+              <div className="flex aspect-square w-6 md:w-8 items-center justify-center rounded-lg bg-primary text-white shadow-lg shadow-primary/20 transition-transform group-hover:rotate-12">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="md:w-5 md:h-5">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+            {/* Subtle pulse ring */}
+            <div className="absolute inset-0 rounded-2xl border border-primary/40 animate-ping opacity-20 group-hover:opacity-40" />
+          </div>
+        </motion.a>
       </motion.div>
 
       {/* Scroll Indicator */}
