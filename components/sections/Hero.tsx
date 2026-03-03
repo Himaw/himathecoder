@@ -90,8 +90,15 @@ export default function Hero() {
             src="/img/hima.jpg"
             alt="Himasara Profile"
             fill
+            priority
+            sizes="(max-width: 768px) 220px, (max-width: 1024px) 400px, 450px"
             className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-            referrerPolicy="no-referrer"
+            onLoad={() => {
+              if (typeof window !== 'undefined') {
+                (window as any).heroImageLoaded = true;
+                window.dispatchEvent(new Event('heroImageLoaded'));
+              }
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </motion.div>

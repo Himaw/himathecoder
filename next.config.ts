@@ -15,9 +15,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'picsum.photos',
         port: '',
-        pathname: '/**', // This allows any path under the hostname
+        pathname: '/**',
       },
     ],
+    // Serve modern formats (avif is ~50% smaller than webp)
+    formats: ['image/avif', 'image/webp'],
+    // Precise breakpoints so mobile gets a small image, not a huge one
+    deviceSizes: [390, 430, 768, 1024, 1280, 1920],
+    imageSizes: [220, 400, 450],
   },
   output: 'standalone',
   transpilePackages: ['motion'],

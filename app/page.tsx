@@ -25,32 +25,44 @@ export default function Home() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const touchStartY = useRef<number | null>(null);
+  const isFirstRenderDone = useRef(false);
 
-  useEffect(() => {
-    const preloadHeroImage = () =>
-      new Promise<void>((resolve) => {
-        const img = new window.Image();
-        img.onload = () => resolve();
-        img.onerror = () => resolve(); // Don't block forever on error
-        img.src = '/img/hima.jpg';
-      });
+  // Dual-gate system: preloader only hides when BOTH gates are open.
+  // Gate 1: preloader animation sequence is done.
+  // Gate 2: all critical assets (image + fonts) are fully loaded.
+  const animationDone = useRef(false);
+  const assetsDone = useRef(false);
 
-    const handleLoad = async () => {
-      // Wait for the hero image to load
-      await preloadHeroImage();
-      // We don't set setIsLoading(false) here anymore. 
-      // Instead, we wait for Preloader to finish its sequence.
-      document.body.style.cursor = 'default';
-      window.scrollTo(0, 0);
-    };
-
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-      return () => window.removeEventListener('load', handleLoad);
+  const tryDismiss = useCallback(() => {
+    if (animationDone.current && assetsDone.current) {
+      setIsLoading(false);
     }
   }, []);
+
+  // Setup simple ready state without fragile image onLoads
+  useEffect(() => {
+    const markAssetsDone = () => {
+      assetsDone.current = true;
+      document.body.style.cursor = 'default';
+      window.scrollTo(0, 0);
+      tryDismiss();
+    };
+
+    // Fast resolution: if the document is completely loaded, we're good.
+    if (document.readyState === 'complete') {
+      markAssetsDone();
+    } else {
+      window.addEventListener('load', markAssetsDone, { once: true });
+    }
+
+    // Maximum wait time for any assets: 3 seconds. 
+    // This strictly prevents the 8-15 second lockup on mobile!
+    const safetyTimeout = setTimeout(() => {
+      markAssetsDone();
+    }, 3000);
+
+    return () => clearTimeout(safetyTimeout);
+  }, [tryDismiss]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -185,20 +197,21 @@ export default function Home() {
   return (
     <main className="relative h-[100dvh] w-screen overflow-hidden text-[var(--foreground)] touch-none">
       <AnimatePresence mode='wait'>
-        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+        {isLoading && <Preloader onComplete={() => { animationDone.current = true; tryDismiss(); }} />}
       </AnimatePresence>
       <div className={`relative w-full h-full ${isLoading ? 'invisible' : 'visible'}`}>
         <CustomCursor />
         <Navbar onNavigate={goToSlide} />
 
-      {/* Persistent Interactive Background */}
+      {/* Persistent Interactive Background - optimized for mobile GPU */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[var(--background)] transition-colors duration-500">
         <motion.div 
           style={{ x: moveX, y: moveY }}
           className="absolute inset-[-20%] opacity-60"
         >
-          <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full bg-primary/10 blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full bg-blue-600/5 blur-[150px]" />
+          {/* Using radial-gradients instead of extreme CSS blur() which freezes mobile browsers */}
+          <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)' }} />
           
           {/* Dot Grid that moves with mouse and drifts */}
           <div className="absolute inset-0 h-full w-full opacity-30 dark:opacity-50 bg-drift" 
@@ -291,18 +304,25 @@ export default function Home() {
         </AnimatePresence>
 
         <AnimatePresence mode="wait" onExitComplete={() => setIsAnimating(false)}>
-          <motion.div
-            key={currentSlide}
-            initial={{ y: '20%', opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-            animate={{ y: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
-            exit={{ y: '-20%', opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 flex h-full w-full items-center justify-center pt-12 md:pt-20"
-          >
-            <div className="h-full w-full max-w-[1280px] md:max-w-[1600px]">
-              {Component && <Component />}
-            </div>
-          </motion.div>
+          {!isLoading && (
+            <motion.div
+              key={currentSlide}
+              initial={{ y: isFirstRenderDone.current ? '10%' : '15%', opacity: 0, scale: isFirstRenderDone.current ? 0.98 : 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: '-10%', opacity: 0, scale: 0.98 }}
+              transition={{ 
+                duration: isFirstRenderDone.current ? 0.6 : 1.2, 
+                ease: [0.16, 1, 0.3, 1],
+                delay: isFirstRenderDone.current ? 0 : 0.6
+              }}
+              onAnimationComplete={() => { isFirstRenderDone.current = true; }}
+              className="absolute inset-0 flex h-full w-full items-center justify-center pt-12 md:pt-20"
+            >
+              <div className="h-full w-full max-w-[1280px] md:max-w-[1600px]">
+                {Component && <Component />}
+              </div>
+            </motion.div>
+          )}
         </AnimatePresence>
         </div>
       </div>

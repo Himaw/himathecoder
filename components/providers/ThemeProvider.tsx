@@ -41,7 +41,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const savedTheme = localStorage.getItem('theme') as Theme;
     const savedColor = localStorage.getItem('primaryColor') as Color;
     
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (savedTheme) setTheme(savedTheme);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (savedColor) setPrimaryColorState(savedColor);
     
     setMounted(true);

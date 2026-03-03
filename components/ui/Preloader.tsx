@@ -12,6 +12,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
   const words = ["Hello", "Bonjour", "Ciao", "Olà", "नमस्ते", "สวัสดี", "မင်္ဂလာပါ", "ආයුබෝවන්", "안녕하세요", "こんにちは", "مرحبا", "Jambo", "你好", "Hallå", "Guten Tag", "Selamat", "Hallo", "Kumusta", "Welcome"];
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDimension({ width: window.innerWidth, height: window.innerHeight });
 
     let delay = 150;
@@ -66,6 +67,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20, transition: { duration: 0.4, ease: "easeInOut" } }}
             className="relative z-10 flex flex-col items-center gap-4"
           >
             <div className="flex items-center text-[var(--foreground)] text-[32px] md:text-[42px] font-display font-black tracking-tighter uppercase">

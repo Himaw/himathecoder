@@ -46,19 +46,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const applyThemeColor = (color: ThemeColor) => {
+  function applyThemeColor(color: ThemeColor) {
     const { hex, rgb } = themes[color];
     document.documentElement.style.setProperty('--primary', hex);
     document.documentElement.style.setProperty('--primary-rgb', rgb);
-  };
+  }
 
-  const applyThemeMode = (newMode: ThemeMode) => {
+  function applyThemeMode(newMode: ThemeMode) {
     if (newMode === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  };
+  }
 
   const setTheme = (newTheme: ThemeColor) => {
     setThemeState(newTheme);
