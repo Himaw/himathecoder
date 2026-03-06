@@ -14,7 +14,7 @@ export default function Skills() {
   return (
     <div className="flex h-full w-full flex-col px-5 py-6 md:px-12 md:py-10">
       {/* Fixed Header */}
-      <div className="shrink-0 z-10 backdrop-blur-md pb-4 md:pb-6">
+      <div className="shrink-0 z-10 pb-4 md:pb-6">
         <motion.h2
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}

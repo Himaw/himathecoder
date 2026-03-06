@@ -128,7 +128,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
 export default function Projects() {
   return (
      <div className="flex h-full w-full flex-col px-5 py-6 md:px-12 md:py-10">
-      <div className="sticky top-0 z-10 backdrop-blur-md pb-4 md:pb-6 -mx-5 px-5 md:-mx-12 md:px-12">
+      <div className="sticky top-0 z-10 pb-4 md:pb-6 -mx-5 px-5 md:-mx-12 md:px-12">
         <motion.h2
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
