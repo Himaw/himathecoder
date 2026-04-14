@@ -14,6 +14,7 @@ import Hero from "@/components/sections/Hero";
 import Experience from "@/components/sections/Experience";
 import Education from "@/components/sections/Education";
 import Projects from "@/components/sections/Projects";
+import Publications from "@/components/sections/Publications";
 import Skills from "@/components/sections/Skills";
 import Preloader from "@/components/ui/Preloader";
 
@@ -120,6 +121,10 @@ export default function Home() {
 
           <section id="projects" className="px-4 py-16 md:py-24 md:px-12 border-b border-[var(--border)]">
             <Projects />
+          </section>
+
+          <section id="publications" className="px-4 py-16 md:py-24 md:px-12 border-b border-[var(--border)]">
+            <Publications />
           </section>
 
           <section id="skills" className="px-4 py-16 md:py-24 md:px-12">
