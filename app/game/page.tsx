@@ -72,7 +72,7 @@ export default function GamePage() {
         </nav>
 
         {/* Unique Wider Tetris Window Container with Glow */}
-        <div className="mx-auto w-full max-w-[1400px] px-2 md:px-8 flex-1 flex flex-col justify-center relative z-10 transition-all duration-500">
+        <div className="mx-auto w-full max-w-[1400px] px-4 md:px-8 flex-1 flex flex-col justify-center relative z-10 transition-all duration-500">
           <div className="relative w-full rounded-2xl md:rounded-3xl border border-[var(--primary)]/30 bg-[var(--card)]/40 p-4 md:p-8 backdrop-blur-xl shadow-[0_0_80px_-20px_rgba(var(--primary-rgb),0.3)] overflow-hidden">
             
             {/* Falling Tetris Blocks Animation */}
@@ -129,13 +129,6 @@ export default function GamePage() {
           >
             <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%)' }} />
             <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)' }} />
-            <div className="absolute inset-0 h-full w-full opacity-30 dark:opacity-50 bg-drift" 
-              style={{ 
-                backgroundImage: 'radial-gradient(circle, var(--primary) 1.2px, transparent 1.2px)', 
-                backgroundSize: '40px 40px',
-                animation: 'drift 30s linear infinite'
-              }} 
-            />
           </motion.div>
         </div>
       </div>

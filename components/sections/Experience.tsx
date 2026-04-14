@@ -43,8 +43,8 @@ const experiences = [
 
 export default function Experience() {
   return (
-    <div className="flex h-full w-full flex-col px-5 py-6 md:px-12 md:py-10">
-      <div className="sticky top-0 z-10 pb-4 md:pb-6 -mx-5 px-5 md:-mx-12 md:px-12">
+    <div className="flex w-full flex-col px-5 py-6 md:px-12 md:py-10">
+      <div className="pb-12 md:pb-14">
         <motion.h2
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -54,7 +54,7 @@ export default function Experience() {
         </motion.h2>
       </div>
 
-      <div className="flex-1 pl-2 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
+      <div className="pl-2 pr-4">
         <div className="flex flex-col gap-6">
           {experiences.map((exp, index) => (
             <motion.div
@@ -80,7 +80,7 @@ export default function Experience() {
                   {exp.location} • {exp.type}
                 </p>
                 
-                <p className="mt-2 max-w-3xl text-xs text-[var(--foreground)]/70 leading-relaxed">
+                <p className="mt-2 max-w-3xl text-sm text-[var(--foreground)]/70 leading-relaxed">
                   {exp.description}
                 </p>
 
@@ -88,7 +88,7 @@ export default function Experience() {
                   {exp.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="rounded-full bg-primary/10 px-4 py-1 text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20"
+                      className="rounded-full bg-primary/10 px-4 py-1.5 text-[10px] md:text-[10px] font-bold uppercase tracking-widest text-primary border border-primary/20"
                     >
                       {skill}
                     </span>

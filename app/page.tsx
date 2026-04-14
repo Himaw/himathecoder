@@ -1,35 +1,24 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'motion/react';
-import CustomCursor from '@/components/ui/CustomCursor';
-import Navbar from '@/components/layout/Navbar';
-import Hero from '@/components/sections/Hero';
-import Experience from '@/components/sections/Experience';
-import Education from '@/components/sections/Education';
-import Projects from '@/components/sections/Projects';
-import Skills from '@/components/sections/Skills';
-import Preloader from '@/components/ui/Preloader';
-import { ChevronUp, ChevronDown } from 'lucide-react';
-
-const slides = [
-  { id: 'hero', component: Hero },
-  { id: 'experience', component: Experience },
-  { id: 'education', component: Education },
-  { id: 'projects', component: Projects },
-  { id: 'skills', component: Skills },
-];
+import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import CustomCursor from "@/components/ui/CustomCursor";
+import Navbar from "@/components/layout/Navbar";
+import Hero from "@/components/sections/Hero";
+import Experience from "@/components/sections/Experience";
+import Education from "@/components/sections/Education";
+import Projects from "@/components/sections/Projects";
+import Skills from "@/components/sections/Skills";
+import Preloader from "@/components/ui/Preloader";
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const touchStartY = useRef<number | null>(null);
-  const isFirstRenderDone = useRef(false);
-
-  // Dual-gate system: preloader only hides when BOTH gates are open.
-  // Gate 1: preloader animation sequence is done.
-  // Gate 2: all critical assets (image + fonts) are fully loaded.
   const animationDone = useRef(false);
   const assetsDone = useRef(false);
 
@@ -39,24 +28,19 @@ export default function Home() {
     }
   }, []);
 
-  // Setup simple ready state without fragile image onLoads
   useEffect(() => {
     const markAssetsDone = () => {
       assetsDone.current = true;
-      document.body.style.cursor = 'default';
-      window.scrollTo(0, 0);
+      document.body.style.cursor = "default";
       tryDismiss();
     };
 
-    // Fast resolution: if the document is completely loaded, we're good.
-    if (document.readyState === 'complete') {
+    if (document.readyState === "complete") {
       markAssetsDone();
     } else {
-      window.addEventListener('load', markAssetsDone, { once: true });
+      window.addEventListener("load", markAssetsDone, { once: true });
     }
 
-    // Maximum wait time for any assets: 3 seconds. 
-    // This strictly prevents the 8-15 second lockup on mobile!
     const safetyTimeout = setTimeout(() => {
       markAssetsDone();
     }, 3000);
@@ -66,266 +50,131 @@ export default function Home() {
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-
   const springX = useSpring(mouseX, { stiffness: 40, damping: 30 });
   const springY = useSpring(mouseY, { stiffness: 40, damping: 30 });
-
   const moveX = useTransform(springX, [0, 2000], [-100, 100]);
   const moveY = useTransform(springY, [0, 2000], [-100, 100]);
-
-  const isEmbeddedScroll = (target: HTMLElement | null, deltaY?: number): boolean => {
-    let current = target;
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-    while (current && current !== document.body) {
-      const isScrollable = current.classList.contains('custom-scrollbar') || 
-                           window.getComputedStyle(current).overflowY === 'auto' || 
-                           window.getComputedStyle(current).overflowY === 'scroll';
-      
-      if (isScrollable && current.scrollHeight > current.clientHeight) {
-        // On mobile, always block slide transitions if we're over a scrollable area
-        if (isMobile) return true;
-
-        // On desktop, only block if there's actual room to scroll in that direction
-        if (deltaY !== undefined) {
-          if (deltaY > 0) { // Scrolling Down
-            const canScrollDown = current.scrollTop + current.clientHeight < current.scrollHeight - 2;
-            if (canScrollDown) return true;
-          } else if (deltaY < 0) { // Scrolling Up
-            const canScrollUp = current.scrollTop > 2;
-            if (canScrollUp) return true;
-          }
-        } else {
-          // If no deltaY provided (e.g. TouchStart), assume it's embedded
-          return true;
-        }
-      }
-      current = current.parentElement;
-    }
-    return false;
-  };
-
-  const handleScroll = useCallback((e: WheelEvent) => {
-    if (isAnimating) return;
-    
-    // Check if scrolling inside a scrollable child, passing deltaY for boundary detection
-    if (isEmbeddedScroll(e.target as HTMLElement, e.deltaY)) return;
-
-    const threshold = 80;
-    if (e.deltaY > threshold) {
-      if (currentSlide < slides.length - 1) {
-        setIsAnimating(true);
-        setCurrentSlide((prev) => prev + 1);
-      }
-    } else if (e.deltaY < -threshold) {
-      if (currentSlide > 0) {
-        setIsAnimating(true);
-        setCurrentSlide((prev) => prev - 1);
-      }
-    }
-  }, [currentSlide, isAnimating]);
-
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (isAnimating) return;
-
-    if (e.key === 'ArrowDown') {
-      if (currentSlide < slides.length - 1) {
-        setIsAnimating(true);
-        setCurrentSlide((prev) => prev + 1);
-      }
-    } else if (e.key === 'ArrowUp') {
-      if (currentSlide > 0) {
-        setIsAnimating(true);
-        setCurrentSlide((prev) => prev - 1);
-      }
-    }
-  }, [currentSlide, isAnimating]);
-
-  const handleTouchStart = useCallback((e: TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
-  }, []);
-
-  const handleTouchEnd = useCallback((e: TouchEvent) => {
-    if (touchStartY.current === null || isAnimating) return;
-    
-    // Check if touching inside a scrollable child (deltaY not applicable here simple swipe)
-    if (isEmbeddedScroll(e.target as HTMLElement)) {
-      touchStartY.current = null;
-      return;
-    }
-
-    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
-    const threshold = 100; // Increased for better deliberate swipes
-    if (deltaY > threshold && currentSlide < slides.length - 1) {
-      setIsAnimating(true);
-      setCurrentSlide((prev) => prev + 1);
-    } else if (deltaY < -threshold && currentSlide > 0) {
-      setIsAnimating(true);
-      setCurrentSlide((prev) => prev - 1);
-    }
-    touchStartY.current = null;
-  }, [currentSlide, isAnimating]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('wheel', handleScroll);
-    window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [handleScroll, handleKeyDown, handleTouchStart, handleTouchEnd, mouseX, mouseY]);
-
-  const goToSlide = (index: number) => {
-    if (isAnimating || index === currentSlide || index < 0 || index >= slides.length) return;
-    setIsAnimating(true);
-    setCurrentSlide(index);
-  };
-
-  const slide = slides[currentSlide];
-  const Component = slide?.component;
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
   return (
-    <main className="relative h-[100dvh] w-screen overflow-hidden text-[var(--foreground)] touch-none">
-      <AnimatePresence mode='wait'>
-        {isLoading && <Preloader onComplete={() => { animationDone.current = true; tryDismiss(); }} />}
-      </AnimatePresence>
-      <div className={`relative w-full h-full ${isLoading ? 'invisible' : 'visible'}`}>
-        <CustomCursor />
-        <Navbar onNavigate={goToSlide} />
-
-      {/* Persistent Interactive Background - optimized for mobile GPU */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[var(--background)] transition-colors duration-500">
-        <motion.div 
-          style={{ x: moveX, y: moveY }}
-          className="absolute inset-[-20%] opacity-60"
-        >
-          {/* Using radial-gradients instead of extreme CSS blur() which freezes mobile browsers */}
-          <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%)' }} />
-          <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)' }} />
-          
-          {/* Dot Grid that moves with mouse and drifts */}
-          <div className="absolute inset-0 h-full w-full opacity-30 dark:opacity-50 bg-drift" 
-            style={{ 
-              backgroundImage: 'radial-gradient(circle, var(--primary) 1.2px, transparent 1.2px)', 
-              backgroundSize: '40px 40px',
-              animation: 'drift 30s linear infinite'
-            }} 
+    <main className="relative min-h-screen w-full overflow-x-hidden text-[var(--foreground)]">
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <Preloader
+            onComplete={() => {
+              animationDone.current = true;
+              tryDismiss();
+            }}
           />
-        </motion.div>
-      </div>
+        )}
+      </AnimatePresence>
 
-      <div className="relative z-10 flex h-full w-full flex-col">
+      <div className={`relative w-full ${isLoading ? "invisible" : "visible"}`}>
+        <CustomCursor />
+        <Navbar />
 
-        {/* Navigation Dots */}
-        <div className="fixed right-8 top-1/2 z-50 hidden md:flex -translate-y-1/2 flex-col gap-6">
-          {slides.map((slideItem, index) => (
-            <button
-              key={slideItem.id}
-              onClick={() => goToSlide(index)}
-              className="group relative flex items-center justify-end"
-            >
-              {/* Slide Name Tooltip */}
-              <span className="mr-6 absolute right-full opacity-0 translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 font-display text-[10px] font-black uppercase tracking-widest text-primary/80 whitespace-nowrap pointer-events-none">
-                {slideItem.id}
-              </span>
-
-              <div className={`h-2.5 w-2.5 rounded-full transition-all duration-500 ${
-                index === currentSlide 
-                  ? 'scale-125 bg-primary shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)]' 
-                  : 'bg-foreground/20 hover:bg-foreground/40'
-              }`} />
-            </button>
-          ))}
-        </div>
-
-        {/* Slide Indicator (Mobile) */}
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 md:hidden">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? 'h-2 w-6 bg-primary'
-                  : 'h-2 w-2 bg-foreground/20'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Mobile Navigation Buttons (Tactile Up/Down) */}
-        <div className="fixed right-6 bottom-8 z-50 flex md:hidden flex-col gap-4">
-          <button
-            onClick={() => currentSlide > 0 && goToSlide(currentSlide - 1)}
-            disabled={currentSlide === 0}
-            className={`p-3 rounded-full border transition-all duration-300 ${
-              currentSlide === 0 
-                ? 'opacity-10 scale-90 border-primary/20 text-primary/20' 
-                : 'bg-[var(--background)]/80 backdrop-blur-md border-primary/50 text-primary hover:bg-primary hover:text-white active:scale-90 shadow-lg shadow-primary/10'
-            }`}
-            aria-label="Previous Slide"
+        {/* Persistent Interactive Background */}
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[var(--background)] transition-colors duration-500">
+          <motion.div
+            style={{ x: moveX, y: moveY }}
+            className="absolute inset-[-20%] opacity-60"
           >
-            <ChevronUp size={24} />
-          </button>
-          <button
-            onClick={() => currentSlide < slides.length - 1 && goToSlide(currentSlide + 1)}
-            disabled={currentSlide === slides.length - 1}
-            className={`p-3 rounded-full border transition-all duration-300 ${
-              currentSlide === slides.length - 1 
-                ? 'opacity-10 scale-90 border-primary/20 text-primary/20' 
-                : 'bg-[var(--background)]/80 backdrop-blur-md border-primary/50 text-primary hover:bg-primary hover:text-white active:scale-90 shadow-lg shadow-primary/10'
-            }`}
-            aria-label="Next Slide"
-          >
-            <ChevronDown size={24} />
-          </button>
-        </div>
-
-        <AnimatePresence>
-          {isAnimating && (
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="fixed left-0 top-0 z-[100] h-1 w-full bg-primary origin-left"
-            />
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence mode="wait" onExitComplete={() => setIsAnimating(false)}>
-          {!isLoading && (
-            <motion.div
-              key={currentSlide}
-              initial={{ y: isFirstRenderDone.current ? '10%' : '15%', opacity: 0, scale: isFirstRenderDone.current ? 0.98 : 0.95 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: '-10%', opacity: 0, scale: 0.98 }}
-              transition={{ 
-                duration: isFirstRenderDone.current ? 0.6 : 1.2, 
-                ease: [0.16, 1, 0.3, 1],
-                delay: isFirstRenderDone.current ? 0 : 0.6
+            <div
+              className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%)",
               }}
-              onAnimationComplete={() => { isFirstRenderDone.current = true; }}
-              className="absolute inset-0 flex h-full w-full items-center justify-center pt-12 md:pt-20"
-            >
-              <div className="h-full w-full max-w-[1280px] md:max-w-[1600px]">
-                {Component && <Component />}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            />
+            <div
+              className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(59,130,246,0.05) 0%, transparent 70%)",
+              }}
+            />
+          </motion.div>
         </div>
+
+        {/* Page Sections */}
+        <div className="relative z-10 mx-auto w-full max-w-[1600px]">
+          <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-24 pb-16 md:px-12 border-b border-[var(--border)]">
+            <Hero />
+          </section>
+
+          <section id="experience" className="px-4 py-16 md:py-24 md:px-12 border-b border-[var(--border)]">
+            <Experience />
+          </section>
+
+          <section id="education" className="px-4 py-16 md:py-24 md:px-12 border-b border-[var(--border)]">
+            <Education />
+          </section>
+
+          <section id="projects" className="px-4 py-16 md:py-24 md:px-12 border-b border-[var(--border)]">
+            <Projects />
+          </section>
+
+          <section id="skills" className="px-4 py-16 md:py-24 md:px-12">
+            <Skills />
+          </section>
+        </div>
+
+        {/* Footer */}
+        <footer className="relative z-10 border-t border-[var(--border)] mt-12">
+          <div className="mx-auto max-w-[1600px] px-8 py-10 md:px-16 md:py-14">
+            <h3 className="mb-6 font-display text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] text-primary/80">
+              Contact &amp; Socials
+            </h3>
+            <div className="flex flex-wrap gap-x-10 gap-y-6">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-zinc-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  <p className="text-[9px] font-bold uppercase tracking-widest">Email</p>
+                </div>
+                <a href="mailto:himasara.warna@gmail.com" className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90 hover:text-primary transition-colors">
+                  himasara.warna@gmail.com
+                </a>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-zinc-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <p className="text-[9px] font-bold uppercase tracking-widest">Phone</p>
+                </div>
+                <p className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90">
+                  +66 (0) 64 671 2502
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-zinc-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                  <p className="text-[9px] font-bold uppercase tracking-widest">LinkedIn</p>
+                </div>
+                <a href="https://linkedin.com/in/himaofficial" target="_blank" className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90 hover:text-primary transition-colors">
+                  in/himaofficial
+                </a>
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-zinc-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                  <p className="text-[9px] font-bold uppercase tracking-widest">GitHub</p>
+                </div>
+                <a href="https://github.com/Himaw" target="_blank" className="font-display text-sm font-bold uppercase text-[var(--foreground)]/90 hover:text-primary transition-colors">
+                  github/Himaw
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </main>
   );
 }
+

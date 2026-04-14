@@ -53,20 +53,16 @@ export default function Preloader({
 
   return (
     <motion.div
-      initial={{ top: 0 }}
-      exit={{ top: "-100vh" }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 }}
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--background)] overflow-hidden"
     >
       {dimension.width > 0 && (
         <>
-          {/* Theme background dots */}
-          <div className="absolute inset-0 h-full w-full opacity-30 bg-drift pointer-events-none" 
-            style={{ 
-              backgroundImage: 'radial-gradient(circle, var(--primary) 1.2px, transparent 1.2px)', 
-              backgroundSize: '40px 40px',
-            }} 
-          />
+          {/* Background Glows to match the theme */}
+          <div className="absolute top-1/4 left-1/3 h-[50vw] w-[50vw] rounded-full opacity-20" style={{ background: 'radial-gradient(circle, rgba(var(--primary-rgb), 0.2) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-1/4 right-1/3 h-[60vw] w-[60vw] rounded-full opacity-10" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%)' }} />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -75,7 +71,6 @@ export default function Preloader({
             className="relative z-10 flex flex-col items-center gap-4"
           >
             <div className="flex items-center text-[var(--foreground)] text-[32px] md:text-[42px] font-display font-black tracking-tighter uppercase">
-              <span className="mr-3 block h-3 w-3 rounded-full bg-[var(--primary)] shadow-[0_0_15px_var(--primary)]"></span>
               {words[index]}
             </div>
             
@@ -88,16 +83,6 @@ export default function Preloader({
               />
             </div>
           </motion.div>
-
-          <svg className="absolute top-0 w-full h-[calc(100%+300px)] pointer-events-none">
-            <motion.path
-              variants={curve}
-              initial="initial"
-              exit="exit"
-              fill="currentColor"
-              className="text-[var(--background)]"
-            ></motion.path>
-          </svg>
         </>
       )}
     </motion.div>

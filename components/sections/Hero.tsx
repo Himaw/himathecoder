@@ -6,7 +6,7 @@ import Magnetic from '@/components/ui/Magnetic';
 
 export default function Hero() {
   return (
-    <div className="relative flex min-h-0 h-full w-full flex-col items-center justify-center px-5 gap-4 md:flex-row md:gap-12 md:px-12 lg:gap-20">
+    <div className="relative flex w-full flex-col items-center justify-center px-5 gap-4 md:flex-row md:gap-12 md:px-12 lg:gap-20">
       <div className="flex flex-col gap-5 md:gap-6 text-center md:text-left z-10 w-full md:w-1/2">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -34,7 +34,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-xl text-sm text-[var(--muted)] md:text-base lg:text-lg leading-relaxed"
+          className="max-w-xl text-base text-[var(--muted)] md:text-base lg:text-lg leading-relaxed"
         >
           I Turn Thoughts into Digital Realities. A passionate software engineer excelling in problem-solving, full-stack innovation, and crafting immersive digital experiences.
         </motion.p>
@@ -61,7 +61,7 @@ export default function Hero() {
             <a 
               href="https://linkedin.com/in/himaofficial" 
               target="_blank" 
-              className="rounded-full bg-primary px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-[#ffffff] glow-pulse"
+              className="rounded-full bg-primary px-8 py-4 text-xs font-bold uppercase tracking-widest text-[#ffffff] glow-pulse"
             >
               Connect on LinkedIn
             </a>
@@ -84,7 +84,7 @@ export default function Hero() {
             repeat: Infinity, 
             ease: "easeInOut" 
           }}
-          className="relative aspect-[3/4] w-full max-w-[220px] md:max-w-[400px] lg:max-w-[450px] max-h-[33vh] md:max-h-none overflow-hidden rounded-3xl border border-[var(--border)] glass shadow-2xl"
+          className="relative aspect-[3/4] w-full max-w-[280px] md:max-w-[400px] lg:max-w-[450px] max-h-[40vh] md:max-h-none overflow-hidden rounded-3xl border border-[var(--border)] glass shadow-2xl"
         >
           <Image
             src="/img/hima.jpg"
@@ -107,7 +107,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -right-3 top-8 md:-right-8 md:top-20 rounded-xl bg-primary px-3 py-1.5 font-display text-[8px] md:text-sm font-bold uppercase tracking-widest text-[#ffffff] shadow-2xl md:px-6 md:py-3"
+          className="absolute -right-3 top-8 md:-right-8 md:top-20 rounded-xl bg-primary px-4 py-2 font-display text-[10px] md:text-sm font-bold uppercase tracking-widest text-[#ffffff] shadow-2xl md:px-6 md:py-3"
         >
           AI Enthusiast
         </motion.div>
@@ -115,7 +115,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute -left-3 bottom-8 md:-left-8 md:bottom-20 rounded-xl bg-[var(--card)] border border-[var(--border)] backdrop-blur-md px-3 py-1.5 font-display text-[6px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--foreground)] shadow-2xl md:px-6 md:py-3"
+          className="absolute -left-3 bottom-8 md:-left-8 md:bottom-20 rounded-xl bg-[var(--card)] border border-[var(--border)] backdrop-blur-md px-4 py-2 font-display text-[10px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--foreground)] shadow-2xl md:px-6 md:py-3"
         >
           Full Stack Dev
         </motion.div>
@@ -154,32 +154,6 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-2xl border border-primary/40 animate-ping opacity-20 group-hover:opacity-40" />
           </div>
         </motion.a>
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-3 hidden md:flex"
-      >
-        <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-[var(--muted)]">
-          Scroll to explore
-        </span>
-        <div className="relative h-10 w-6 rounded-full border-2 border-[var(--border)]">
-          <motion.div
-            animate={{ 
-              y: [4, 24, 4],
-              opacity: [1, 0, 1]
-            }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            className="absolute left-1/2 top-2 h-2 w-1 -translate-x-1/2 rounded-full bg-primary"
-          />
-        </div>
       </motion.div>
     </div>
   );

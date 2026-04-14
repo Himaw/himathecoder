@@ -36,8 +36,8 @@ const academics = [
 
 export default function Education() {
   return (
-    <div className="flex h-full w-full flex-col px-5 py-6 md:px-12 md:py-10">
-      <div className="sticky top-0 z-10 pb-4 md:pb-6 -mx-5 px-5 md:-mx-12 md:px-12">
+    <div className="flex w-full flex-col px-5 py-6 md:px-12 md:py-10">
+      <div className="pb-12 md:pb-14">
         <motion.h2
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -47,7 +47,7 @@ export default function Education() {
         </motion.h2>
       </div>
 
-      <div className="flex-1 pr-4 min-h-0 overflow-y-auto custom-scrollbar">
+      <div className="pr-4">
         <div className="grid gap-6 md:grid-cols-2">
           {academics.map((edu, index) => (
             <motion.div
@@ -76,7 +76,7 @@ export default function Education() {
                 </div>
               )}
 
-              <p className="text-xs leading-relaxed text-[var(--muted)]">
+              <p className="text-sm leading-relaxed text-[var(--muted)]">
                 {edu.description}
               </p>
 
@@ -85,7 +85,7 @@ export default function Education() {
                   {edu.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]"
+                      className="text-[10px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--muted)]"
                     >
                       #{skill}
                     </span>
