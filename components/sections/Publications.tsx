@@ -72,10 +72,14 @@ function PublicationCard({
       </p>
 
       <div className="mt-auto pt-4 border-t border-[var(--border)]/50">
-        <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary hover:text-primary/70 transition-colors">
+        <a 
+          href={pub.link}
+          target="_blank"
+          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary hover:text-primary/70 transition-colors"
+        >
           <BookOpen className="h-3 w-3" />
           Show publication
-        </button>
+        </a>
       </div>
     </motion.div>
   );
