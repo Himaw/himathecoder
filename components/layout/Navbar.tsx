@@ -134,14 +134,12 @@ export default function Navbar() {
                 <Gamepad2 className="h-5 w-5" />
               </Link>
 
-              <Magnetic>
-                <a
-                  href="mailto:himasara.warna@gmail.com"
-                  className="rounded-full bg-[var(--foreground)] px-6 py-2 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-transform hover:scale-105 active:scale-95"
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="rounded-full bg-[var(--foreground)] px-6 py-2 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-colors hover:bg-primary hover:text-white"
                 >
                   Let&apos;s Talk
-                </a>
-              </Magnetic>
+                </button>
             </div>
           </div>
 
@@ -214,17 +212,16 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <motion.a
+              <motion.button
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ delay: navLinks.length * 0.1, duration: 0.3 }}
-                href="mailto:himasara.warna@gmail.com"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mt-8 rounded-full bg-[var(--foreground)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-transform hover:scale-105 active:scale-95"
+                onClick={() => scrollToSection("contact")}
+                className="mt-8 rounded-full bg-[var(--foreground)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-colors hover:bg-primary hover:text-white"
               >
                 Let&apos;s Talk
-              </motion.a>
+              </motion.button>
             </nav>
           </motion.div>
         )}

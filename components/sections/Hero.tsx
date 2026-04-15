@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'motion/react';
-import Image from 'next/image';
-import Magnetic from '@/components/ui/Magnetic';
+import { motion } from "motion/react";
+import Image from "next/image";
+import Magnetic from "@/components/ui/Magnetic";
 
 export default function Hero() {
   return (
@@ -26,7 +26,9 @@ export default function Hero() {
             className="font-display text-[clamp(3rem,6vw,6rem)] font-black leading-[0.9] tracking-tighter uppercase text-[var(--foreground)]"
           >
             Himasara <br />
-            <span className="text-[0.6em] text-[var(--muted)]">Warnakulasuriya</span>
+            <span className="text-[0.6em] text-[var(--muted)]">
+              Warnakulasuriya
+            </span>
           </motion.h1>
         </div>
 
@@ -36,7 +38,15 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="max-w-xl text-base text-[var(--muted)] md:text-base lg:text-lg leading-relaxed"
         >
-          I Turn Thoughts into Digital Realities. I build <span className="font-bold text-[var(--foreground)]">scalable systems</span> and <span className="font-bold text-[var(--foreground)]">high-performance software</span> with a focus on clean, elegant code and seamless digital experiences.
+          I Turn Thoughts into Digital Realities. I build{" "}
+          <span className="font-bold text-[var(--foreground)]">
+            scalable systems
+          </span>{" "}
+          and{" "}
+          <span className="font-bold text-[var(--foreground)]">
+            high-performance software
+          </span>{" "}
+          with a focus on clean, elegant code and seamless digital experiences.
         </motion.p>
 
         <motion.div
@@ -47,9 +57,9 @@ export default function Hero() {
         >
           <div className="md:block hidden">
             <Magnetic>
-              <a 
-                href="https://linkedin.com/in/himaofficial" 
-                target="_blank" 
+              <a
+                href="https://linkedin.com/in/himaofficial"
+                target="_blank"
                 className="group relative overflow-hidden rounded-full bg-[var(--foreground)] px-10 py-5 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-all hover:pr-12"
               >
                 <span className="relative z-10">Connect on LinkedIn</span>
@@ -58,9 +68,9 @@ export default function Hero() {
             </Magnetic>
           </div>
           <div className="md:hidden block">
-            <a 
-              href="https://linkedin.com/in/himaofficial" 
-              target="_blank" 
+            <a
+              href="https://linkedin.com/in/himaofficial"
+              target="_blank"
               className="rounded-full bg-primary px-8 py-4 text-xs font-bold uppercase tracking-widest text-[#ffffff] glow-pulse"
             >
               Connect on LinkedIn
@@ -75,14 +85,14 @@ export default function Hero() {
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
         className="relative mt-4 md:mt-0 w-full md:w-1/2 flex justify-center items-center"
       >
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             y: [0, -10, 0],
           }}
-          transition={{ 
-            duration: 5, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
           className="relative aspect-[3/4] w-full max-w-[280px] md:max-w-[400px] lg:max-w-[450px] max-h-[40vh] md:max-h-none overflow-hidden rounded-3xl border border-[var(--border)] glass shadow-2xl"
         >
@@ -94,15 +104,15 @@ export default function Hero() {
             sizes="(max-width: 768px) 220px, (max-width: 1024px) 400px, 450px"
             className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
             onLoad={() => {
-              if (typeof window !== 'undefined') {
+              if (typeof window !== "undefined") {
                 (window as any).heroImageLoaded = true;
-                window.dispatchEvent(new Event('heroImageLoaded'));
+                window.dispatchEvent(new Event("heroImageLoaded"));
               }
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </motion.div>
-        
+
         {/* Floating Elements */}
         <motion.div
           animate={{ y: [0, -10, 0] }}
@@ -114,7 +124,12 @@ export default function Hero() {
 
         <motion.div
           animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
           className="absolute -left-3 bottom-8 md:-left-8 md:bottom-20 rounded-xl bg-[var(--card)] border border-[var(--border)] backdrop-blur-md px-4 py-2 font-display text-[10px] md:text-[10px] font-bold uppercase tracking-widest text-[var(--foreground)] shadow-2xl md:px-6 md:py-3"
         >
           Full Stack Dev
@@ -124,29 +139,40 @@ export default function Hero() {
         <motion.a
           href="/game"
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ 
-            opacity: 1, 
+          animate={{
+            opacity: 1,
             scale: 1,
-            y: [0, -5, 0]
+            y: [0, -5, 0],
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ 
+          transition={{
             opacity: { duration: 0.8, delay: 1.2 },
             scale: { duration: 0.8, delay: 1.2 },
-            y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+            y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
           }}
           className="absolute -right-2 -bottom-2 md:-right-4 md:-bottom-4 z-20 hidden lg:flex flex-col items-center gap-1 group"
         >
           <div className="relative rounded-2xl bg-primary/10 border border-primary/20 backdrop-blur-xl px-4 py-2 md:px-6 md:py-3 shadow-[0_0_20px_rgba(var(--primary-rgb),0.2)] group-hover:shadow-[0_0_30px_rgba(var(--primary-rgb),0.4)] transition-all duration-300">
             <div className="flex items-center gap-2 md:gap-3">
               <div className="flex flex-col">
-                <span className="text-[10px] md:text-sm font-bold text-primary leading-tight text-glow">Bored?</span>
-                <span className="text-[8px] md:text-[10px] text-[var(--foreground)] font-medium leading-none whitespace-nowrap">Play Tetris</span>
+                <span className="text-[10px] md:text-sm font-bold text-primary leading-tight text-glow">
+                  Bored?
+                </span>
+                <span className="text-[8px] md:text-[10px] text-[var(--foreground)] font-medium leading-none whitespace-nowrap">
+                  Play Tetris
+                </span>
               </div>
               <div className="flex aspect-square w-6 md:w-8 items-center justify-center rounded-lg bg-primary text-white shadow-lg shadow-primary/20 transition-transform group-hover:rotate-12">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="md:w-5 md:h-5">
-                  <path d="M8 5v14l11-7z"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="md:w-5 md:h-5"
+                >
+                  <path d="M8 5v14l11-7z" />
                 </svg>
               </div>
             </div>
