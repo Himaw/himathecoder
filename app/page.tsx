@@ -66,8 +66,23 @@ export default function Home() {
       mouseY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+
+    // Fix for scroll jump on refresh
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, [mouseX, mouseY]);
+
+  // Ensure scroll is at top after loading finishes
+  useEffect(() => {
+    if (!isLoading && !window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [isLoading]);
 
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden text-[var(--foreground)]">

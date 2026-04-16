@@ -50,6 +50,7 @@ export default function Navbar() {
                 e.preventDefault();
                 el.scrollIntoView({ behavior: "smooth" });
               }
+              setMobileMenuOpen(false);
             }}
             className="group flex items-center gap-2"
           >
