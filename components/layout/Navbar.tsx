@@ -83,7 +83,24 @@ export default function Navbar() {
         window.scrollY + element.getBoundingClientRect().top - navbarOffset,
       );
 
-      animateWindowScroll(targetTop);
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
+
+      if (isMobileViewport) {
+        if (scrollAnimationFrame.current !== null) {
+          window.cancelAnimationFrame(scrollAnimationFrame.current);
+          scrollAnimationFrame.current = null;
+        }
+
+        const behavior: ScrollBehavior = prefersReducedMotion
+          ? "auto"
+          : "smooth";
+        window.scrollTo({ top: targetTop, behavior });
+      } else {
+        animateWindowScroll(targetTop);
+      }
 
       if (options?.updateHistory !== false) {
         const targetHash = id === "hero" ? "/" : `/#${id}`;
