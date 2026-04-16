@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Menu, X, Palette, Sun, Moon, Gamepad2 } from "lucide-react";
 import { useTheme, themes } from "@/hooks/use-theme";
 import Magnetic from "@/components/ui/Magnetic";
@@ -18,125 +18,19 @@ const navLinks = [
 
 export default function Navbar() {
   const router = useRouter();
-  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const { theme: currentTheme, setTheme, mode, toggleMode } = useTheme();
-  const pendingScrollKey = "pending-section-scroll";
-  const scrollAnimationFrame = useRef<number | null>(null);
 
-  const animateWindowScroll = useCallback((targetTop: number) => {
-    if (scrollAnimationFrame.current !== null) {
-      window.cancelAnimationFrame(scrollAnimationFrame.current);
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push(`/#${id}`);
     }
-
-    const startTop = window.scrollY;
-    const distance = targetTop - startTop;
-
-    if (Math.abs(distance) < 2) {
-      window.scrollTo(0, targetTop);
-      return;
-    }
-
-    const duration = Math.min(1100, Math.max(450, Math.abs(distance) * 0.6));
-    const startTime = performance.now();
-
-    const easeInOutCubic = (progress: number) => {
-      return progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-    };
-
-    const step = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeInOutCubic(progress);
-
-      window.scrollTo(0, startTop + distance * easedProgress);
-
-      if (progress < 1) {
-        scrollAnimationFrame.current = window.requestAnimationFrame(step);
-      } else {
-        scrollAnimationFrame.current = null;
-      }
-    };
-
-    scrollAnimationFrame.current = window.requestAnimationFrame(step);
-  }, []);
-
-  const smoothScrollToSection = useCallback(
-    (id: string, options?: { updateHistory?: boolean }) => {
-      const element = document.getElementById(id);
-
-      if (!element) {
-        if (typeof window !== "undefined") {
-          window.sessionStorage.setItem(pendingScrollKey, id);
-        }
-        router.push(id === "hero" ? "/" : `/#${id}`, { scroll: false });
-        setMobileMenuOpen(false);
-        return;
-      }
-
-      const navbarOffset = 0;
-      const targetTop = Math.max(
-        0,
-        window.scrollY + element.getBoundingClientRect().top - navbarOffset,
-      );
-
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      const isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
-
-      if (isMobileViewport) {
-        if (scrollAnimationFrame.current !== null) {
-          window.cancelAnimationFrame(scrollAnimationFrame.current);
-          scrollAnimationFrame.current = null;
-        }
-
-        const behavior: ScrollBehavior = prefersReducedMotion
-          ? "auto"
-          : "smooth";
-        window.scrollTo({ top: targetTop, behavior });
-      } else {
-        animateWindowScroll(targetTop);
-      }
-
-      if (options?.updateHistory !== false) {
-        const targetHash = id === "hero" ? "/" : `/#${id}`;
-        window.history.replaceState(null, "", targetHash);
-      }
-
-      setMobileMenuOpen(false);
-    },
-    [animateWindowScroll, pendingScrollKey, router],
-  );
-
-  useEffect(() => {
-    if (pathname !== "/") {
-      return;
-    }
-
-    const pendingSection = window.sessionStorage.getItem(pendingScrollKey);
-    if (!pendingSection) {
-      return;
-    }
-
-    const animationFrame = window.requestAnimationFrame(() => {
-      smoothScrollToSection(pendingSection);
-      window.sessionStorage.removeItem(pendingScrollKey);
-    });
-
-    return () => window.cancelAnimationFrame(animationFrame);
-  }, [pathname, smoothScrollToSection]);
-
-  useEffect(() => {
-    return () => {
-      if (scrollAnimationFrame.current !== null) {
-        window.cancelAnimationFrame(scrollAnimationFrame.current);
-      }
-    };
-  }, []);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -151,8 +45,11 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={(e) => {
-              e.preventDefault();
-              smoothScrollToSection("hero", { updateHistory: false });
+              const el = document.getElementById("hero");
+              if (el) {
+                e.preventDefault();
+                el.scrollIntoView({ behavior: "smooth" });
+              }
             }}
             className="group flex items-center gap-2"
           >
@@ -166,7 +63,7 @@ export default function Navbar() {
             {navLinks.map((link, i) => (
               <button
                 key={link.id}
-                onClick={() => smoothScrollToSection(link.id)}
+                onClick={() => scrollToSection(link.id)}
                 className="group relative px-4 py-2 text-[11px] font-medium uppercase tracking-widest text-[var(--foreground)]/50 transition-all duration-300 hover:text-[var(--foreground)]"
               >
                 {link.name}
@@ -237,12 +134,12 @@ export default function Navbar() {
                 <Gamepad2 className="h-5 w-5" />
               </Link>
 
-              <button
-                onClick={() => smoothScrollToSection("contact")}
-                className="rounded-full bg-[var(--foreground)] px-6 py-2 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-colors hover:bg-primary hover:text-white"
-              >
-                Let&apos;s Talk
-              </button>
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="rounded-full bg-[var(--foreground)] px-6 py-2 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-colors hover:bg-primary hover:text-white"
+                >
+                  Let&apos;s Talk
+                </button>
             </div>
           </div>
 
@@ -279,7 +176,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ delay: i * 0.1, duration: 0.3 }}
-                  onClick={() => smoothScrollToSection(link.id)}
+                  onClick={() => scrollToSection(link.id)}
                   className="font-display text-3xl font-bold uppercase tracking-widest text-[var(--foreground)] transition-colors hover:text-primary"
                 >
                   {link.name}
@@ -320,7 +217,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ delay: navLinks.length * 0.1, duration: 0.3 }}
-                onClick={() => smoothScrollToSection("contact")}
+                onClick={() => scrollToSection("contact")}
                 className="mt-8 rounded-full bg-[var(--foreground)] px-8 py-3 text-sm font-bold uppercase tracking-widest text-[var(--background)] transition-colors hover:bg-primary hover:text-white"
               >
                 Let&apos;s Talk
