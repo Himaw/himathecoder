@@ -1,12 +1,9 @@
-<div align="center">
-  <img width="1200" height="475" alt="HimaTheCoder Portfolio Banner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # HimaTheCoder | Immersive Portfolio
 
 Welcome to the official source code of my personal portfolio. This project is a high-end, immersive web experience designed to showcase my work as a Software Engineer, highlighting scalability, performance, and elegant design.
 
 ## 🚀 Live Demo
+
 **[himathecoder.com](https://himathecoder.com/)**
 
 ---
@@ -39,23 +36,28 @@ Welcome to the official source code of my personal portfolio. This project is a 
 ## 🏃 Run Locally
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or pnpm
 
 ### Setup
+
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/Himaw/himathecoder.git
    cd himathecoder
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Environment Variables**:
    Create a `.env.local` file in the root directory and add the following:
+
    ```env
    NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
    NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
@@ -63,6 +65,7 @@ Welcome to the official source code of my personal portfolio. This project is a 
    ```
 
 4. **Run the development server**:
+
    ```bash
    npm run dev
    ```
